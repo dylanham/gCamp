@@ -13,6 +13,17 @@
     </div>
   </nav>
 <%= yield %>
+<footer>
 
+
+  <div class="container">
+    <div class="page-header">
+    </div>
+    <%= link_to "About", about_path(@about)%> |
+    <%= link_to "Terms", terms_path(@terms)%>
+
+  </div>
+
+</footer>
 </body>
 </html>
