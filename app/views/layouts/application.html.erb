@@ -19,9 +19,19 @@
   <div class="container">
     <div class="page-header">
     </div>
-    <%= link_to "About", about_path%> |
-    <%= link_to "Terms", terms_path%>
-
+    <div class="row">
+      <div class="col-md-6">
+        <%= link_to "About", about_path%> |
+        <%= link_to "Terms", terms_path%>
+      </div>
+      <div class="col-md-6">
+        <%= link_to image_tag("galvanize.png", id:"footer-img"), "https://students.gschool.it/cohorts/8/students/280" %>
+        <%= link_to image_tag("twitter.png", id:"footer-img"), "https://twitter.com/dylanjham" %>
+        <%= link_to image_tag("GitHub.png", id:"footer-img"), "https://github.com/dylanham" %>
+        <%= link_to image_tag("linked_in.jpg", id:"footer-img"), "https://www.linkedin.com/pub/dylan-ham/77/895/532" %>
+                
+      </div>
+    </div>
   </div>
 
 </footer>
