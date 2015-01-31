@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -14,29 +15,28 @@
       </div>
     </div>
   </nav>
+
 <%= yield %>
-<footer>
 
-
-  <div class="container">
-    <div class="page-header">
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-      <%= link_to "About", about_path%> |
-      <%= link_to "Terms", terms_path%> |
-      <%= link_to "FAQ", faq_path%>
+  <footer>
+    <div class="container">
+      <div class="page-header">
       </div>
-      <div class="col-md-6">
-      <%= link_to image_tag("galvanize.png", class:"footer-img"), "https://students.gschool.it/cohorts/8/students/280" %>
-      <%= link_to image_tag("twitter.png", class:"footer-img"), "https://twitter.com/dylanjham" %>
-      <%= link_to image_tag("GitHub.png", class:"footer-img"), "https://github.com/dylanham" %>
-      <%= link_to image_tag("linked_in.jpg", class:"footer-img"), "https://www.linkedin.com/pub/dylan-ham/77/895/532" %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= link_to "About", about_path%> |
+          <%= link_to "Terms", terms_path%> |
+          <%= link_to "FAQ", faq_path%>
+        </div>
+        <div class="col-md-6">
+          <%= link_to image_tag("galvanize.png", class:"footer-img"), "https://students.gschool.it/cohorts/8/students/280" %>
+          <%= link_to image_tag("twitter.png", class:"footer-img"), "https://twitter.com/dylanjham" %>
+          <%= link_to image_tag("GitHub.png", class:"footer-img"), "https://github.com/dylanham" %>
+          <%= link_to image_tag("linked_in.jpg", class:"footer-img"), "https://www.linkedin.com/pub/dylan-ham/77/895/532" %>
+        </div>
       </div>
-
     </div>
-  </div>
-
-</footer>
+  </footer>
+  
 </body>
 </html>
