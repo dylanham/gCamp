@@ -6,6 +6,4 @@ class TermsController < ApplicationController
   def about_page
   end
 
-  def faq_page
-  end
 end
