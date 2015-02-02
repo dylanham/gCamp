@@ -4,21 +4,22 @@
     <h1>Frequently Asked Questions</h1>
   </div>
   <ul>
-    <li><%= link_to  'What is gCamp?',               '#What is gCamp'.downcase.gsub(" ","-") %></li>
-    <li><%= link_to  'How do I join gCamp?',         '#How do I join gCamp'.downcase.gsub(" ","-") %></li>
-    <li><%= link_to  'When will gCamp be finished?', '#When Will gCamp be Finished'.downcase.gsub(" ","-") %></li>
+    <li><%= link_to  @questions[0],'#'+@slug[0] %></li>
+    <li><%= link_to  @questions[1],'#'+@slug[1] %></li>
+    <li><%= link_to  @questions[2],'#'+@slug[2] %></li>
   </ul>
 
-  <p class="h3"><%= @questions %></p>
-  <p>ERB will go here</p>
+  <p class="h3"><%= @questions[0] %></p>
+  <p><%= @answers[0] %></p>
   <p><%=link_to "Top","#"%></p>
 
-  <p class="h3">ERB will go here </p>
-  <p>ERB will go here</p>
+  <p class="h3"><%= @questions[1] %></p>
+  <p><%= @answers[1] %></p>
   <p><%=link_to "Top","#"%></p>
 
-  <p class="h3">ERB will go here </p>
-  <p>ERB will go here</p>
+  <p class="h3"><%= @questions[1] %></p>
+  <p><%= @answers[1] %></p>
   <p><%=link_to "Top","#"%></p>
+
 
 </div>

@@ -1,0 +1,35 @@
+<div class="container">
+
+  <div class="page-header">
+    <h1>Frequently Asked Questions</h1>
+  </div>
+  <ul>
+    <li><%= link_to  @questions[0],'#'+@slugs[0] %></li>
+    <li><%= link_to  @questions[1],'#'+@slugs[1] %></li>
+    <li><%= link_to  @questions[2],'#'+@slugs[2] %></li>
+  </ul>
+  <div class="row">
+    <div class="col-md-6">
+      <p class="h3"><%= @questions[0] %></p>
+      <p><%= @answers[0] %></p>
+      <p><%=link_to "Top","#"%></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <p class="h3"><%= @questions[1] %></p>
+      <p><%= @answers[1] %></p>
+      <p><%=link_to "Top","#"%></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <p class="h3"><%= @questions[2] %></p>
+      <p><%= @answers[2] %></p>
+      <p><%=link_to "Top","#"%></p>
+    </div>
+  </div>
+
+</div>

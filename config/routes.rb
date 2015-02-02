@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # Example of regular route:
   get 'terms/', to: 'terms#index'
   get 'about/', to: 'terms#about_page'
-  get 'faq/'  , to: 'commonquestions#index'
+  get 'faq/'  , to: 'common_questions#index'
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
