@@ -1,24 +1,20 @@
 <div class="container">
-
   <div class="page-header">
     <h1>Frequently Asked Questions</h1>
   </div>
-
   <ul>
-        <%@array[1].each do |question|%>
+    <%@array[1].each do |question|%>
     <li><%=link_to question, '#'+question.downcase.gsub(' ','-')%></li>
-        <% end %>
+    <% end %>
   </ul>
   <div class ="row">
     <div class="col-md-6">
-
       <% @array[0].each do |question, answer| %>
-        <p class="h3"><%= question %></p>
+       <%=content_tag :a,'',name: question.downcase.gsub(' ','-') %>
+        <p class="h3"> <%= question %></p>
         <p><%= answer %> </p>
-
-      <% end %>
-
-
+        <p><%=link_to 'Top','#'%></p>
+        <% end %>
     </div>
   </div>
 </div>

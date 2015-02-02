@@ -2,7 +2,7 @@
 class CommonQuestion
 
   def self.get_question
-    @questions=['What is gCamp?','How do I join gCamp?','When will gCamp be finished?',]
+    @questions=['What is gCamp?','How do I join gCamp?','When will gCamp be finished?']
   end
 
   def self.get_answer
