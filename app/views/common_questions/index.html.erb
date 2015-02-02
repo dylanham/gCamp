@@ -11,7 +11,7 @@
     <div class="col-md-6">
       <% @array[0].each do |question, answer| %>
        <%=content_tag :a,'',name: question.downcase.gsub(' ','-') %>
-        <p class="h3"> <%= question %></p>
+        <h3> <%= question %></h3>
         <p><%= answer %> </p>
         <p><%=link_to 'Top','#'%></p>
         <% end %>
