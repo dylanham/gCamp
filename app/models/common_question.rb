@@ -23,7 +23,7 @@ class CommonQuestion
   def self.get_slug
     question_slug = {}
     @questions.each do |q|
-      question_slug.store(q,q.downcase.gsub(' ','-'))
+      question_slug.store(q,q.parameterize )
     end
     question_slug
   end

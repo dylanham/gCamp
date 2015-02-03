@@ -10,7 +10,7 @@
   <div class ="row">
     <div class="col-md-6">
       <% @array[0].each do |question, answer| %>
-       <%=content_tag :a,'',name: question.downcase.gsub(' ','-') %>
+       <%=content_tag :a,'',name: question.parameterize%>
         <h3> <%= question %></h3>
         <p><%= answer %> </p>
         <p><%=link_to 'Top','#'%></p>
