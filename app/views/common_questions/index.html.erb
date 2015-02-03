@@ -3,8 +3,8 @@
     <h1>Frequently Asked Questions</h1>
   </div>
   <ul>
-    <%@array[1].each do |question|%>
-    <li><%=link_to question, '#'+question.downcase.gsub(' ','-')%></li>
+    <%@array[1].each do |question,slug|%>
+    <li><%=link_to question, "##{slug}"%></li>
     <% end %>
   </ul>
   <div class ="row">

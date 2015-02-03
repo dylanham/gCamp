@@ -1,5 +1,6 @@
 
 class CommonQuestion
+  @questions=['What is gCamp?','How do I join gCamp?','When will gCamp be finished?']
 
   def self.get_question
     @questions=['What is gCamp?','How do I join gCamp?','When will gCamp be finished?']
@@ -20,7 +21,11 @@ class CommonQuestion
   end
 
   def self.get_slug
-    @questions
+    question_slug = {}
+    @questions.each do |q|
+      question_slug.store(q,q.downcase.gsub(' ','-'))
+    end
+    question_slug
   end
 
 end
