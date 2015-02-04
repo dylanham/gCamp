@@ -15,13 +15,6 @@ class CommonQuestion
       Functional. Check in daily for new features and awesome functionality.
       It\'s going to blow your mind. Organization is just a click away. Amazing!'}
 
-  def self.get_question
-    questions = []
-    @questions_answers.each do |q, a|
-      questions << q
-    end
-    questions
-  end
 
   def self.get_question_answer
     @questions_answers
@@ -30,7 +23,7 @@ class CommonQuestion
 
   def self.get_slug
     question_slug = {}
-    @questions_answers.each do |q,a|
+    @questions_answers.each_key do |q|
       question_slug.store(q,q.parameterize )
     end
     question_slug
