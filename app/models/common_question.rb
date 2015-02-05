@@ -29,4 +29,6 @@ class CommonQuestion
     question_slug
   end
 
+  
+
 end
