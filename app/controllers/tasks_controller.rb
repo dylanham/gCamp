@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.save
-    redirect_to tasks_path
+    redirect_to @task, notice: "Task was successfully created"
   end
 
   def show
@@ -25,14 +25,16 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to tasks_path
+      redirect_to @task, notice: "Task was successfully updated"
     else
       render :edit
     end
   end
 
-  def  destroy
-    task = task.find(params[:id])
+  def destroy
+    task = Task.find(params[:id])
+    task.destroy
+    redirect_to tasks_path
   end
 
   private

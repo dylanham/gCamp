@@ -2,16 +2,18 @@
   <div class ="page-header">
       <h1>Listing Tasks </h1>
   </div>
-      <p><strong>Description </strong></p>
+      <p><strong>Description</strong></p>
         <% @tasks.each do |task| %>
       <p>
         <%= task.description %>
         <%= link_to 'Show', task_path(task) %>
         <%= link_to 'Edit', edit_task_path(task) %>
-        <%= link_to 'Destroy', tasks_path %>
+        <%= link_to 'Destroy', task_path(task), method: :delete %>
         <% end %>
-
-
       </p>
+        <%= link_to 'New Task', new_task_path %>
+
+
+
 
 </div>

@@ -1,7 +1,11 @@
 <div class ="container">
+  <div class ="page-header">
+  <h1>New Task </h1>
+  </div>
   <%= form_for @task do |f| %>
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-  <%= f.submit "Create Task" %>
+  <p><%= f.label :description %></p>
+  <p><%= f.text_field :description %><p>
+  <p><%= f.submit "Create Task" %></p>
   <% end %>
+  <%= link_to 'Back', tasks_path %>
 </div>
