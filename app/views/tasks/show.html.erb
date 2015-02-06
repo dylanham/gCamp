@@ -1,5 +1,7 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-<p><strong>Description: <%=@task.description%></strong></p>
+<div class= 'container'>
+  <p class= 'alert alert-success'><%= notice %></p>
+  <div class= 'page-header'>
+    <%=@task.description%>
+  </div>
 <%= link_to 'Edit',edit_task_path(@task) %> | <%= link_to 'Back',tasks_path %>
 </div>
