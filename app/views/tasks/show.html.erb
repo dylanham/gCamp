@@ -1,7 +1,21 @@
 <div class= 'container'>
   <p class= 'alert alert-success'><%= notice %></p>
-  <div class= 'page-header'>
-    <%=@task.description%>
+  <div class ="page-header">
+    <div class ="row">
+      <div class ="col-md-12">
+        <div class ="pull-right">
+          <h1><%= link_to 'Edit',edit_task_path(@task), class:'btn btn-info' %></h1>
+        </div>
+        <h1><%=@task.description%></h1>
+      </div>
+    </div>
   </div>
-<%= link_to 'Edit',edit_task_path(@task) %> | <%= link_to 'Back',tasks_path %>
+  <div class= "row">
+    <div class= "col-md-12">
+      <ol class="breadcrumb">
+        <li><%= link_to 'Tasks',tasks_path %></li>
+        <li class="active"><%= @task.description.capitalize%></li>
+      </ol>
+    </div>
+  </div>
 </div>
