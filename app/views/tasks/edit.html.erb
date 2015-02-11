@@ -3,7 +3,8 @@
 </div>
 <ol class="breadcrumb">
   <li><%= link_to 'Tasks',tasks_path %></li>
-  <li class="active">Edit Task</li>
+  <li><%= link_to @task.description, task_path(@task) %>
+  <li class="active">Edit</li>
 </ol>
 
 <%= render 'form' %>
