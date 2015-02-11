@@ -1,16 +1,15 @@
 <%= form_for(@task, html: {class: 'form-horizontal'}) do |f| %>
 <div class= "form-group">
-<%= f.label :description, class: 'col-md-1 control-label'%>
-<div class="col-md-3">
-<%= f.text_field :description, class: 'form-control' %>
-</div>
+  <%= f.label :description, class: 'col-md-1 control-label'%>
+  <div class="col-md-3">
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
 </div>
 
 <div class= "form-group">
-<div class= "col-md-6 col-md-offset-1">
-<%= f.submit class:'btn btn-primary' %>
-
-<% end %>
-<%= link_to 'Cancel', tasks_path, class: 'btn btn-default' %>
-</div>
+  <div class= "col-md-6 col-md-offset-1">
+    <%= f.submit class:'btn btn-primary' %>
+    <% end %>
+    <%= link_to 'Cancel', tasks_path, class: 'btn btn-default' %>
+  </div>
 </div>
