@@ -10,6 +10,6 @@
         %h1= @task.description.downcase.titleize
 .row
   .col-md-12
-    %ol.breadcrumb">
+    %ol.breadcrumb
       %li= link_to 'Tasks',tasks_path
       %li.active= @task.description
