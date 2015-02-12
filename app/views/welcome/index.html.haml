@@ -1,0 +1,39 @@
+.jumbotron
+  %h1 gCamp
+  %p
+  %p Your life, organized.
+
+.row
+  .col-md-4
+    %p.lead= image_tag("1.jpg", alt: "1 feed", class:"img-responsive")
+  .col-md-4
+    %p.lead= image_tag("2.jpg", alt: "2 feed", class:"img-responsive")
+  .col-md-4
+    %p.lead= image_tag("3.jpg", alt: "3 feed", class:"img-responsive")
+
+  .col-md-4
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title Tasks
+      .panel-body
+        %p Grouped by projects and lists. Just the way you like'em
+
+  .col-md-4
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title Permissions
+      .panel-body
+        %p Fine-grained permissions
+
+  .col-md-4
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title Comments
+      .panel-body
+        %ul
+          %li Comment on tasks and documents
+          %li Get email notifications
+
+  - @quotes.each do |author, quote|
+    %p= quote
+    %em.text-muted= author

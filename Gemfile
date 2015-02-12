@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails_12factor', '~> 0.0.3', group: :production
-
+gem 'haml', '~> 4.0.6'
+gem 'haml-rails', '~> 0.8.2'
 gem 'bootstrap-sass', '~> 3.3.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
