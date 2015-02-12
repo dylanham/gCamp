@@ -14,5 +14,6 @@
             %s= link_to task.description,task_path(task)
         - else
           %td= link_to task.description, task_path(task)
-        %td.text-right.col-md-1= link_to 'Edit', edit_task_path(task), class: 'btn btn-info'
-        %td.text-right.col-md-1= link_to 'Delete', task_path(task), class: 'btn btn-danger', method: :delete
+        %td.col-md-2.text-right
+          = link_to 'Edit', edit_task_path(task), class: 'btn btn-info'
+          = link_to 'Delete', task_path(task), class: 'btn btn-danger', method: :delete
