@@ -13,3 +13,8 @@
     %ol.breadcrumb
       %li= link_to 'Tasks',tasks_path
       %li.active= @task.description
+.row
+  .col-md-12
+    %p
+      %strong Due Date:
+      = @task.due_date.strftime("%m/%d/%Y")
