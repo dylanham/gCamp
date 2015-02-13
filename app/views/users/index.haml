@@ -1,1 +1,19 @@
-test
+.page-header
+  .pull-right
+    = link_to 'New User', new_user_path, class:'btn btn-info'
+  %h1 Users
+%table.table
+  %thead
+    %tr
+      %th{colspan: 1} Name
+      %th{colspan: 2} Email
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td.col-md-1
+          = user.first_name
+          = user.last_name
+        %td.col-md-1=mail_to user.email.downcase
+        %td.col-md-2.text-right
+          = link_to 'Edit', edit_user_path(user), class: 'btn btn-info'
+          = link_to 'Delete', user_path(user), class: 'btn btn-danger', method: :delete

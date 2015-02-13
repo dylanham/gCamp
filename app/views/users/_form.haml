@@ -1,0 +1,18 @@
+= form_for(@user, html: {class: 'form-horizontal'}) do |f|
+  .form-group
+    = f.label :first_name,'FirstName', class: 'col-md-1 control-label'
+    .col-md-3
+      = f.text_field :first_name, class: 'form-control'
+  .form-group
+    = f.label :last_name, 'LastName', class: 'col-md-1 control-label'
+    .col-md-3
+      = f.text_field :last_name, class: 'form-control'
+  .form-group
+    = f.label :email, 'Email', class: 'col-md-1 control-label'
+    .col-md-3
+      = f.email_field :email, class: 'form-control'
+
+  .form-group
+    .col-md-6.col-md-offset-1
+      = f.submit class:'btn btn-primary'
+      = link_to 'Cancel', users_path, class: 'btn btn-default'
