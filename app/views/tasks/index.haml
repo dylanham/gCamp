@@ -15,11 +15,7 @@
             %s= link_to task.description,task_path(task)
         - else
           %td.col-md-1= link_to task.description, task_path(task)
-
-        - if task.due_date
-          %td.col-md-2= task.due_date.strftime("%m/%d/%Y")
-        - else
-          %td.col-md-2
+        %td.col-md-2= task.due_date.try(:strftime, "%m/%d/%Y")
         %td.col-md-2.text-right
           = link_to 'Edit', edit_task_path(task), class: 'btn btn-info'
           = link_to 'Delete', task_path(task), class: 'btn btn-danger', method: :delete
