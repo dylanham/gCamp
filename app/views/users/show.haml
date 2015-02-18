@@ -6,11 +6,6 @@
       %h1= "#{@user.first_name} #{@user.last_name}".titleize
 .row
   .col-md-12
-    %ol.breadcrumb
-      %li= link_to 'Users',users_path
-      %li.active= "#{@user.first_name} #{@user.last_name}".titleize
-.row
-  .col-md-12
-    %p
-      %strong Email:
-      =@user.email.downcase
+    %dl.dl-horizontal
+      %dt
+      %dt
