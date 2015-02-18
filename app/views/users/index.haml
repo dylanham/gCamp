@@ -10,8 +10,7 @@
   %tbody
     - @users.each do |user|
       %tr
-        %td.col-md-1=link_to "#{user.first_name.capitalize} #{user.last_name.capitalize}",user_path(user)
-        %td.col-md-1=mail_to user.email.downcase
+        %td.col-md-1= link_to "#{user.first_name.capitalize} #{user.last_name.capitalize}",user_path(user)
+        %td.col-md-1= mail_to user.email.downcase
         %td.col-md-2.text-right
-          = link_to 'Edit', edit_user_path(user), class: 'btn btn-info'
-        
+          = link_to 'Edit', edit_user_path(user)
