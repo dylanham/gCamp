@@ -1,3 +1,8 @@
 .page-header
   %h1 New User
+.row
+  .col-md-12
+    %ol.breadcrumb
+      %li= link_to 'Users',users_path
+      %li.active= 'New User'
 = render 'form'

@@ -3,12 +3,12 @@
     .col-md-12
       .pull-right
         %h1= link_to 'Edit',edit_user_path(@user), class:'btn btn-info'
-      %h1= "#{@user.first_name} #{@user.last_name}"
+      %h1= "#{@user.first_name} #{@user.last_name}".titleize
 .row
   .col-md-12
     %ol.breadcrumb
       %li= link_to 'Users',users_path
-      %li.active= "#{@user.first_name} #{@user.last_name}"
+      %li.active= "#{@user.first_name} #{@user.last_name}".titleize
 .row
   .col-md-12
     %p

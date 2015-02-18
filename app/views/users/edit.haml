@@ -1,3 +1,13 @@
 .page-header
-  %h1 Edit User
+  .row
+    .col-md-12
+      .pull-right
+        %h1= link_to 'Delete',user_path(@user), class:'btn btn-danger',method: :delete
+      %h1 Edit User
+.row
+  .col-md-12
+    %ol.breadcrumb
+      %li= link_to 'Users',users_path
+      %li= link_to "#{@user.first_name} #{@user.last_name}".titleize, user_path(@user)
+      %li.active Edit
 = render 'form'
