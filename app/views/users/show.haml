@@ -2,20 +2,15 @@
   .row
     .col-md-12
       .pull-right
-        %h1= link_to 'Edit',edit_task_path(@task), class:'btn btn-info'
-      - if @task.complete
-        %h1
-          %s=@task.description.downcase.titleize
-      - else
-        %h1= @task.description.downcase.titleize
+        %h1= link_to 'Edit',edit_user_path(@user), class:'btn btn-info'
+      %h1= "#{@user.first_name} #{@user.last_name}"
 .row
   .col-md-12
     %ol.breadcrumb
-      %li= link_to 'Tasks',tasks_path
-      %li.active= @task.description
+      %li= link_to 'Users',users_path
+      %li.active= "#{@user.first_name} #{@user.last_name}"
 .row
   .col-md-12
     %p
-      %strong Due Date:
-      -if @task.due_date
-        = @task.due_date.strftime("%m/%d/%Y")
+      %strong Email:
+      =@user.email.downcase
