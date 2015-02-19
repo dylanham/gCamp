@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe 'user should be able to go to index page and see something' do
+feature 'user should be able to go to index page and see something' do
   it 'checks to see if it can find the word Users' do
     visit tasks_path
     save_and_open_page
@@ -12,8 +12,9 @@ describe 'user should be able to go to index page and see something' do
     fill_in 'Due date', with: '09172016'
     click_on 'Create'
     within '.breadcrumb' do
-      click_on 'Task'
-    end
+    click_on 'Task'
+    expect(page).to have_content 'Do Work'
     save_and_open_page
+    end
   end
 end
