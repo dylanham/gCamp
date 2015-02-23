@@ -1,11 +1,21 @@
+- if @task.errors.any?
+  .row
+    .col-md-8.col-md-offset-2
+      .alert.alert-danger
+        %h3
+          = pluralize(@task.errors.count, "error")
+          prohibited this form from being saved:
+        - @task.errors.full_messages.each do |message|
+          %ul
+            %li= message
 = form_for(@task, html: {class: 'form-horizontal'}) do |f|
   .form-group
     = f.label :description, class: 'col-md-2 control-label'
-    .col-md-3
+    .col-md-6
       = f.text_field :description, class: 'form-control'
   .form-group
     = f.label :due_date, class: 'col-md-2 control-label'
-    .col-md-2
+    .col-md-3
       = f.date_field :due_date, class: 'form-control'
 
   - unless @task.new_record?
