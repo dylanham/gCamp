@@ -1,13 +1,4 @@
-- if @user.errors.any?
-  .row
-    .col-md-7.col-md-offset-2
-      .alert.alert-danger
-        %h3
-          = pluralize(@user.errors.count, "error")
-          prohibited this form from being saved:
-        - @user.errors.full_messages.each do |message|
-          %ul
-            %li= message
+= render partial: "shared/error", locals: {object: @user}
 = form_for(@user, html: {class: 'form-horizontal'}) do |f|
   .form-group
     = f.label :first_name,'First Name', class: 'control-label col-md-2'
