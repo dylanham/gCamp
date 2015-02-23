@@ -11,3 +11,4 @@
       %tr
         %td.col-md-1= link_to project.name, project_path(project)
         %td.col-md-2.text-right
+        = link_to 'delete', project_path(project), method: :delete
