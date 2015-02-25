@@ -3,7 +3,7 @@
     .col-md-12
       .pull-right
         %h1= link_to 'Edit',edit_user_path(@user), class:'btn btn-info'
-      %h1= "#{@user.first_name} #{@user.last_name}".titleize
+      %h1= @user.full_name
 %dl.dl-horizontal
   %dt First Name
   %dd= @user.first_name.capitalize
