@@ -2,24 +2,24 @@ require 'rails_helper'
 
 describe User do
 
-  before :each do
-    User.destroy_all
-    @user = User.create(first_name: 'First', last_name: 'Last', email: 'firstlast@test.com')
-  end
-
-  it 'should have a first_name, last_name and an email' do
-    expect(@user).to be_valid
-  end
-
-  it 'should have a full_name' do
-    expect(@user).to be_valid
-    expect(@user.full_name).to eq('First Last')
-  end
-
-  it 'should have a unique email' do
-    @user.email = "new@new.com"
-    expect(@user).to be_valid
-  end
+  # before :each do
+  #   User.destroy_all
+  #   @user = User.create(first_name: 'First', last_name: 'Last', email: 'firstlast@test.com')
+  # end
+  #
+  # it 'should have a first_name, last_name and an email' do
+  #   expect(@user).to be_valid
+  # end
+  #
+  # it 'should have a full_name' do
+  #   expect(@user).to be_valid
+  #   expect(@user.full_name).to eq('First Last')
+  # end
+  #
+  # it 'should have a unique email' do
+  #   @user.email = "new@new.com"
+  #   expect(@user).to be_valid
+  # end
 
   it 'should be invalid if user email is not unique' do
     user = User.create(first_name: 'first_test', last_name: 'last_test', email: 'firstlast@test.com')
