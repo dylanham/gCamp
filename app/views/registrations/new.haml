@@ -1,0 +1,16 @@
+.well.col-md-8.col-md-offset-2
+  .page-header
+    %h3 Sign up for gCamp
+  = render partial: "shared/error", locals: {object: @user}
+  = form_for(@user, url: sign_up_path, html: {class: 'form'}) do |f|
+    = f.label :first_name,'First Name', class: 'control-label'
+    = f.text_field :first_name, class: 'form-control'
+    = f.label :last_name, 'Last Name', class: 'control-label'
+    = f.text_field :last_name, class: 'form-control'
+    = f.label :email, 'Email', class: 'control-label'
+    = f.email_field :email, class: 'form-control'
+    = f.label :password, class: 'control-label'
+    = f.password_field :password, class: 'form-control'
+    = f.label :password_confirmation, class: 'control-label'
+    = f.password_field :password_confirmation, class: 'form-control'
+    = f.submit 'Sign Up', class:'btn btn-primary'
