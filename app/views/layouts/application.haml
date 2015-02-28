@@ -12,6 +12,9 @@
       - if flash[:notice]
         .alert.alert-success
           = flash[:notice]
+      - if flash[:warning]
+        .alert.alert-danger
+          = flash[:warning]
       = yield
 
     = render 'layouts/footer'

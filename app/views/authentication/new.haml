@@ -1,6 +1,15 @@
-= form_tag @user, url: sign_in_path do
-  = label_tag :email
-  = email_field_tag :email
-  = label_tag :password
-  = password_field_tag :password
-  = submit_tag "Sign In"
+.well.col-md-6.col-md-offset-3
+  .page-header
+    %h3 Sign into gCamp
+  -if flash[:error]
+    %p
+      %strong.text-danger= flash[:error]
+  = form_tag sign_in_path, class: 'form' do
+    .form-group
+      = label_tag :email, nil, class: 'control-label'
+      = email_field_tag :email, nil, class: 'form-control'
+    .form-group
+      = label_tag :password, nil , class: 'control-label'
+      = password_field_tag :password, nil, class: 'form-control'
+    .form-group
+      = submit_tag "Sign In", class: 'btn btn-default'

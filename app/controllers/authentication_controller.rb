@@ -1,4 +1,6 @@
 class AuthenticationController < ApplicationController
+  skip_before_action :ensure_current_user
+
   def destroy
     session.clear
     flash[:notice] = "You have successfully logged out"
@@ -15,7 +17,9 @@ class AuthenticationController < ApplicationController
       flash[:notice] = "You have successfully signed in"
       redirect_to root_path
     else
+      flash[:error] = "Email / Password combination is invalid"
       render :new
     end
   end
+  
 end
