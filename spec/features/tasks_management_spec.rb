@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'user should be able to go to index page and see something' do
+feature 'user should be able to go crud tasks' do
 
   before :each do
     User.destroy_all
@@ -14,9 +14,11 @@ feature 'user should be able to go to index page and see something' do
     end
   end
 
-  it 'checks to see if it can find New Task' do
+  it 'checks to see if it can find Tasks in the header' do
     visit tasks_path
-    expect(page).to have_content 'New Task'
+    within '.page-header' do
+      expect(page).to have_content 'Tasks'
+    end
   end
 
   it 'should be able to make a new task' do
@@ -25,12 +27,25 @@ feature 'user should be able to go to index page and see something' do
     fill_in 'Description', with: 'Do Work'
     fill_in 'Due date', with: '09172016'
     click_on 'Create'
+    within '.alert-success' do
+      expect(page).to have_content 'Task was successfully created'
+    end
+    expect(page).to have_content 'Do Work'
     within '.breadcrumb' do
       click_on 'Task'
     end
     expect(page).to have_content 'Do Work'
   end
 
+  it 'should not be able to make a blank task' do
+    visit tasks_path
+    click_on 'New Task'
+    click_on 'Create'
+    within '.alert-danger' do
+      expect(page).to have_content '1 error prohibited this form from being saved:'
+      expect(page).to have_content 'Description can\'t be blank'
+    end
+  end
   it 'should be able to update a task' do
     Task.create!(description: 'This is a test', due_date: '09172016')
     visit tasks_path
@@ -38,6 +53,9 @@ feature 'user should be able to go to index page and see something' do
     click_on 'Edit'
     fill_in 'Description', with: 'This test has been updated'
     click_on 'Update Task'
+    within '.alert-success' do
+      expect(page).to have_content 'Task was successfully updated'
+    end
     expect(page).to have_no_content 'This is a test'
     expect(page).to have_content ' This test has been updated'
   end
@@ -62,6 +80,7 @@ feature 'user should be able to go to index page and see something' do
   it 'should see an error if not logged in' do
     User.destroy_all
     visit tasks_path
+    expect(current_path).to eq(sign_in_path)
     expect(page).to have_content 'You must sign in'
   end
 
