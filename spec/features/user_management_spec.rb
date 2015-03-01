@@ -13,7 +13,7 @@ feature 'User should be able to crud users' do
     end
   end
 
-  it 'should be able to visit the index page of users and see something' do
+  it 'should be able to visit the index page of users and see Users' do
     visit users_path
     within '.page-header' do
       expect(page).to have_content 'Users'
@@ -36,6 +36,28 @@ feature 'User should be able to crud users' do
     fill_in 'Password', with: '1234'
     fill_in 'Password Confirmation', with: '1234'
     click_on 'Create User'
+    expect(current_path).to eq(users_path)
+    expect(page).to have_content 'User was successfully created'
+    expect(page).to have_content 'newuser@example.com'
+  end
+
+  it 'should be able to update a new user' do
+    visit users_path
+    click_on 'Edit'
+    fill_in 'First Name', with: 'New First Name'
+    click_on 'Update User'
+    expect(current_path).to eq(users_path)
+    expect(page).to have_content 'User was successfully updated'
+    expect(page).to have_content 'New First Name'
+  end
+
+  it 'should be able to delete a user' do
+    user2 = create_user(email: 'second@example.com')
+    visit edit_user_path(user2)
+    click_on 'Delete User'
+    expect(current_path).to eq(users_path)
+    expect(page).to have_content 'User was successfully delete'
+    expect(page).to have_no_content 'second@example.com'
   end
 
 
