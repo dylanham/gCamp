@@ -2,8 +2,7 @@
   .page-header
     %h3 Sign into gCamp
   -if flash[:error]
-    %p
-      %strong.text-danger= flash[:error]
+    %h5.text-danger= flash[:error]
   = form_tag sign_in_path, class: 'form' do
     .form-group
       = label_tag :email, nil, class: 'control-label'

@@ -3,8 +3,7 @@
     %h3 Sign up for gCamp!
   - if @user.errors.any?
     - @user.errors.full_messages.each do |message|
-      %p
-        %strong.text-danger= message
+      %h5.text-danger= message
   = form_for(@user, url: sign_up_path, html: {class: 'form'}) do |f|
     .form-group
       = f.label :first_name,'First Name', class: 'control-label'
