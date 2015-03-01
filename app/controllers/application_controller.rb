@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_current_user
     unless current_user
-      flash[:warning] = "You must be signed in!"
+      flash[:warning] = "You must sign in"
       redirect_to sign_in_path
     end
   end
