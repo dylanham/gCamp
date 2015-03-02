@@ -1,0 +1,76 @@
+require 'rails_helper'
+
+feature 'It should have full crud access of projects' do
+
+  before :each do
+    User.destroy_all
+    user = create_user
+    visit root_path
+    click_on 'Sign In'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    within '.form' do
+      click_on 'Sign In'
+    end
+  end
+
+  it 'should be able to visit projects page and see projects in the header' do
+    visit projects_path
+    within '.page-header' do
+      expect(page).to have_content 'Projects'
+    end
+  end
+
+  it 'should not be able to visit projects page if not logged in' do
+    User.destroy_all
+    visit projects_path
+    expect(current_path).to eq(sign_in_path)
+    expect(page).to have_content 'You must sign in'
+  end
+
+  it 'should be able to create a new project' do
+    visit projects_path
+    click_on 'New Project'
+    fill_in 'Name', with: 'Test Project'
+    click_on 'Create Project'
+    within '.alert-success' do
+      expect(page).to have_content 'Project was successfully created'
+    end
+    expect(page).to have_content 'Test Project'
+  end
+
+  it 'should see an error if trying to create a nameless project' do
+    visit projects_path
+    click_on 'New Project'
+    click_on 'Create Project'
+    within '.alert-danger' do
+      expect(page).to have_content '1 error prohibited this form from being saved:'
+      expect(page).to have_content 'Name can\'t be blank'
+    end
+  end
+
+  it 'should be able to update a project' do
+    Project.create!(name: 'This is a test')
+    visit projects_path
+    click_on 'This is a test'
+    click_on 'Edit'
+    fill_in 'Name', with: 'This is a test update'
+    click_on 'Update Project'
+    within '.alert-success' do
+      expect(page).to have_content 'Project was successfully updated'
+    end
+    expect(page).to have_content 'This is a test update'
+  end
+
+  it 'should be able to delete a project' do
+    Project.create!(name: 'This is a delete test')
+    visit projects_path
+    click_on 'This is a delete test'
+    click_on 'Delete'
+    within '.alert-success' do
+      expect(page).to have_content 'Project was successfully deleted'
+    end
+    expect(page).to have_no_content 'This is a delete test'
+  end
+
+end
