@@ -60,5 +60,16 @@ feature 'User should be able to crud users' do
     expect(page).to have_no_content 'second@example.com'
   end
 
+  it 'should see validation errors' do
+    visit new_user_path
+    click_on 'Create User'
+    within '.alert-danger' do
+      expect(page).to have_content '4 errors prohibited this form from being saved:'
+      expect(page).to have_content 'First name can\'t be blank'
+      expect(page).to have_content 'Last name can\'t be blank'
+      expect(page).to have_content 'Email can\'t be blank'
+      expect(page).to have_content 'Password can\'t be blank'
+    end
+  end
 
 end
