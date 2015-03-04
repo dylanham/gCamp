@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only:[:show, :edit, :update]
-
+  before_action :ensure_current_user
+  
   def index
     @projects = Project.all
   end
@@ -51,5 +52,5 @@ class ProjectsController < ApplicationController
   def set_project
     @project = Project.find(params[:id])
   end
-  
+
 end

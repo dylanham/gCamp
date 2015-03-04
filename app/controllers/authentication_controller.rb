@@ -1,5 +1,4 @@
 class AuthenticationController < ApplicationController
-  skip_before_action :ensure_current_user
 
   def destroy
     session.clear
@@ -21,5 +20,5 @@ class AuthenticationController < ApplicationController
       render :new
     end
   end
-  
+
 end

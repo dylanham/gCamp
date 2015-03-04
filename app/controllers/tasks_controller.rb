@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update]
-
+  before_action :ensure_current_user
+  
   def index
     @tasks = Task.all
   end
