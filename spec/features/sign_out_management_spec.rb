@@ -24,12 +24,14 @@ feature 'Users should be able to sign out' do
    end
 
    it 'should be able to sign out from a different page and be redirected to root' do
-     visit faq_path
+     visit projects_path
      click_on 'Sign Out'
      within '.alert-success' do
        expect(page).to have_content 'You have successfully logged out'
      end
      expect(current_path).to eq(root_path)
    end
+
+
 
  end
