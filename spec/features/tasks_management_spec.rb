@@ -54,7 +54,6 @@ feature 'user should be able to go crud tasks' do
     project = create_project
     task = create_task(project)
     visit project_tasks_path(project)
-    save_and_open_page
     expect(page).to have_content task.description
     click_on 'Edit'
     fill_in 'Description', with: 'This test has been updated'

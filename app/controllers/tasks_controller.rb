@@ -29,7 +29,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @project.tasks.update(@task, task_params)
+    if @project.tasks.update(@task.id, task_params)
        flash[:notice] = "Task was successfully updated"
        redirect_to project_task_path(@task.project_id, @task)
     else
