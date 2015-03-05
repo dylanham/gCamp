@@ -5,9 +5,10 @@
 %table.table
   %thead
     %tr
-      %th{colspan:2} Name
+      %th Name
+      %th Tasks
   %tbody
     - @projects.each do |project|
       %tr
-        %td.col-md-1= link_to project.name, project_path(project)
-        %td.col-md-2.text-right
+        %td.col-md-8= link_to project.name, project_path(project)
+        %td= link_to project.tasks.count, project_tasks_path(project)

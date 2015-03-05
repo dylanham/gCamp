@@ -8,11 +8,11 @@
           %s=@task.description.downcase.titleize
       - else
         %h1= @task.description.downcase.titleize
-.row
-  .col-md-12
-    %ol.breadcrumb
-      %li= link_to 'Tasks',project_tasks_path(@project)
-      %li.active= @task.description
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li= link_to @project.name, project_path(@project)
+  %li= link_to 'Tasks',project_tasks_path(@project)
+  %li.active= @task.description
 .row
   .col-md-12
     %p
