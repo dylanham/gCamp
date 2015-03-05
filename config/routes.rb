@@ -15,9 +15,10 @@ Rails.application.routes.draw do
   get 'sign-in',  to: 'authentication#new'
   post'sign-in',  to: 'authentication#create'
 
-  resources :tasks
   resources :users
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
