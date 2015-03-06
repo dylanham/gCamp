@@ -2,8 +2,7 @@ require 'rails_helper'
 
 feature 'user should be able to go crud tasks' do
 
-  before :each do
-    User.destroy_all
+  before do
     user = create_user
     visit root_path
     click_on 'Sign In'
@@ -14,7 +13,7 @@ feature 'user should be able to go crud tasks' do
     end
   end
 
-  it 'checks to see if it can find Tasks in the header' do
+  scenario 'checks to see if scenario can find Tasks in the header' do
     project = create_project
     visit project_tasks_path(project)
     within '.page-header' do
@@ -22,7 +21,7 @@ feature 'user should be able to go crud tasks' do
     end
   end
 
-  it 'should be able to make a new task' do
+  scenario 'should be able to make a new task' do
     project = create_project
     visit project_tasks_path(project)
     click_on 'New Task'
@@ -39,7 +38,7 @@ feature 'user should be able to go crud tasks' do
     expect(page).to have_content 'Do Work'
   end
 
-  it 'should not be able to make a blank task' do
+  scenario 'should not be able to make a blank task' do
     project = create_project
     visit project_tasks_path(project)
     click_on 'New Task'
@@ -50,7 +49,7 @@ feature 'user should be able to go crud tasks' do
     end
   end
 
-  it 'should be able to update a task' do
+  scenario 'should be able to update a task' do
     project = create_project
     task = create_task(project)
     visit project_tasks_path(project)
@@ -65,7 +64,7 @@ feature 'user should be able to go crud tasks' do
     expect(page).to have_content ' This test has been updated'
   end
 
-  it 'should be able to delete a task' do
+  scenario 'should be able to delete a task' do
     project = create_project
     task = create_task(project)
     visit project_tasks_path(project)
@@ -74,7 +73,7 @@ feature 'user should be able to go crud tasks' do
     expect(page).to have_no_content task.description
   end
 
-  it 'should be able to visit the show page of a task' do
+  scenario 'should be able to visit the show page of a task' do
     project = create_project
     task = create_task(project)
     visit project_tasks_path(project)
@@ -84,7 +83,7 @@ feature 'user should be able to go crud tasks' do
     end
   end
 
-  it 'should see an error if not logged in' do
+  scenario 'should see an error if not logged in' do
     project = create_project
     User.destroy_all
     visit project_tasks_path(project)

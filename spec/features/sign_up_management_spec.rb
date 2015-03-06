@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'User should be able to log into gCamp and do things' do
 
-  it 'should be able to login to gCamp from the welcome page' do
+  scenario 'should be able to login to gCamp from the welcome page' do
     visit root_path
     click_on 'Sign Up'
     fill_in 'First Name', with: 'First'
@@ -18,7 +18,7 @@ feature 'User should be able to log into gCamp and do things' do
     end
   end
 
-  it 'should redirect you to the root path when signing up' do
+  scenario 'should redirect you to the root path when signing up' do
     visit root_path
     click_on 'Sign Up'
     fill_in 'First Name', with: 'First'
@@ -32,7 +32,7 @@ feature 'User should be able to log into gCamp and do things' do
     expect(current_path).to eq(root_path)
   end
 
-  it 'should see validation messages when trying to sign up with with missing information' do
+  scenario 'should see validation messages when trying to sign up with with missing information' do
     visit root_path
     click_on 'Sign Up'
     within '.form' do

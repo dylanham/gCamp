@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'It should have full crud access of projects' do
 
-  before :each do
+  before do
     User.destroy_all
     user = create_user
     visit root_path
@@ -14,21 +14,21 @@ feature 'It should have full crud access of projects' do
     end
   end
 
-  it 'should be able to visit projects page and see projects in the header' do
+  scenario 'should be able to visit projects page and see projects in the header' do
     visit projects_path
     within '.page-header' do
       expect(page).to have_content 'Projects'
     end
   end
 
-  it 'should not be able to visit projects page if not logged in' do
+  scenario 'should not be able to visit projects page if not logged in' do
     User.destroy_all
     visit projects_path
     expect(current_path).to eq(sign_in_path)
     expect(page).to have_content 'You must sign in'
   end
 
-  it 'should be able to create a new project' do
+  scenario 'should be able to create a new project' do
     visit projects_path
     click_on 'New Project'
     fill_in 'Name', with: 'Test Project'
@@ -39,7 +39,7 @@ feature 'It should have full crud access of projects' do
     expect(page).to have_content 'Test Project'
   end
 
-  it 'should see an error if trying to create a nameless project' do
+  scenario 'should see an error if trying to create a nameless project' do
     visit projects_path
     click_on 'New Project'
     click_on 'Create Project'
@@ -49,7 +49,7 @@ feature 'It should have full crud access of projects' do
     end
   end
 
-  it 'should be able to update a project' do
+  scenario 'should be able to update a project' do
     Project.create!(name: 'This is a test')
     visit projects_path
     click_on 'This is a test'
@@ -62,7 +62,7 @@ feature 'It should have full crud access of projects' do
     expect(page).to have_content 'This is a test update'
   end
 
-  it 'should be able to delete a project' do
+  scenario 'should be able to delete a project' do
     Project.create!(name: 'This is a delete test')
     visit projects_path
     click_on 'This is a delete test'

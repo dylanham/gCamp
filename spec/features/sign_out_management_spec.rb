@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Users should be able to sign out' do
 
-  before :each do
+  before do
     User.destroy_all
     user = create_user
     visit root_path
@@ -14,7 +14,7 @@ feature 'Users should be able to sign out' do
     end
   end
 
-   it 'should be able to click on the sign out button' do
+   scenario 'should be able to click on the sign out button' do
      visit root_path
      click_on 'Sign Out'
      within '.alert-success' do
@@ -23,7 +23,7 @@ feature 'Users should be able to sign out' do
      expect(current_path).to eq(root_path)
    end
 
-   it 'should be able to sign out from a different page and be redirected to root' do
+   scenario 'should be able to sign out from a different page and be redirected to root' do
      visit projects_path
      click_on 'Sign Out'
      within '.alert-success' do

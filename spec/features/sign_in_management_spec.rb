@@ -2,11 +2,11 @@ require 'rails_helper'
 
 feature 'Users should be able to sign in' do
 
-  before :each do
+  before do
     @user = create_user
   end
 
-  it 'should be able to click sign in then sign in' do
+  scenario 'should be able to click sign in then sign in' do
     visit root_path
     click_on 'Sign In'
     fill_in 'Email', with: @user.email
@@ -19,7 +19,7 @@ feature 'Users should be able to sign in' do
     end
   end
 
-  it 'should see an error if signing in with bad information' do
+  scenario 'should see an error if signing in with bad information' do
     visit root_path
     click_on 'Sign In'
     fill_in 'Email', with: 'wrong@example.com'
@@ -30,7 +30,7 @@ feature 'Users should be able to sign in' do
     expect(page).to have_content 'Email / Password combination is invalid'
   end
 
-  it 'should be able routed to root page after signing in' do
+  scenario 'should be able routed to root page after signing in' do
     visit faq_path
     click_on 'Sign In'
     fill_in 'Email', with: @user.email

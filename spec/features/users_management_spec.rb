@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User should be able to crud users' do
-  before :each do
+  before do
     User.destroy_all
     user = create_user
     visit root_path
@@ -13,21 +13,21 @@ feature 'User should be able to crud users' do
     end
   end
 
-  it 'should be able to visit the index page of users and see Users' do
+  scenario 'should be able to visit the index page of users and see Users' do
     visit users_path
     within '.page-header' do
       expect(page).to have_content 'Users'
     end
   end
 
-  it 'should not be able to visit users pages without being logged in' do
+  scenario 'should not be able to visit users pages without being logged in' do
     User.destroy_all
     visit users_path
     expect(current_path).to eq(sign_in_path)
     expect(page).to have_content 'You must sign in'
   end
 
-  it 'should be able to create a new user' do
+  scenario 'should be able to create a new user' do
     visit users_path
     click_on 'New User'
     fill_in 'First Name', with: 'New'
@@ -41,7 +41,7 @@ feature 'User should be able to crud users' do
     expect(page).to have_content 'newuser@example.com'
   end
 
-  it 'should be able to update a new user' do
+  scenario 'should be able to update a new user' do
     visit users_path
     click_on 'Edit'
     fill_in 'First Name', with: 'New First Name'
@@ -51,7 +51,7 @@ feature 'User should be able to crud users' do
     expect(page).to have_content 'New First Name'
   end
 
-  it 'should be able to delete a user' do
+  scenario 'should be able to delete a user' do
     user2 = create_user(email: 'second@example.com')
     visit edit_user_path(user2)
     click_on 'Delete User'
@@ -60,7 +60,7 @@ feature 'User should be able to crud users' do
     expect(page).to have_no_content 'second@example.com'
   end
 
-  it 'should see validation errors' do
+  scenario 'should see validation errors' do
     visit new_user_path
     click_on 'Create User'
     within '.alert-danger' do
