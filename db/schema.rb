@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20150306021351) do
   create_table "memberships", force: :cascade do |t|
     t.string   "role"
     t.integer  "user_id"
-    t.integer  "projects_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|

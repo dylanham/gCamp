@@ -1,0 +1,35 @@
+.page-header
+  %h1= "#{@project.name}: Manage Members"
+%ol.breadcrumb
+  %li= link_to 'Projects', projects_path
+  %li= link_to @project.name, project_path(@project)
+  %li.active Memberships
+- if @membership.errors.any?
+  .row
+    .col-md-7
+      .alert.alert-danger
+        %h3
+          = pluralize(@membership.errors.count, "error")
+          prohibited this form from being saved:
+        - @membership.errors.full_messages.each do |message|
+          %ul
+            %li= message
+.row
+  .col-md-7
+    .well
+      = form_for [@project, @membership], html:{class: 'form-inline'} do |f|
+        = f.collection_select :user_id, User.all, :id, :full_name, {prompt: 'Please select a user...'}, {class: 'form-control'}
+        = f.collection_select :role, Membership::ROLES, :to_s, :to_s, {}, class: 'form-control'
+        = f.submit 'Add New Member', class: 'btn btn-primary'
+.row
+  .col-md-7
+    %table.table
+      %tbody
+        - @project.memberships.each do |membership|
+          - if membership.id
+            = form_for [@project, membership], html:{class: 'form-inline'} do |f|
+              %tr
+                %td= link_to membership.user.full_name, user_path(membership.user_id)
+                %td= f.collection_select :role, Membership::ROLES, :to_s, :to_s, {}, class: 'form-control'
+                %td= f.submit 'Update', class: 'btn btn-primary'
+                %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :email, uniqueness: true
   has_secure_password
-
+  has_many :memberships
   def full_name
     "#{first_name} #{last_name}".titleize
   end
