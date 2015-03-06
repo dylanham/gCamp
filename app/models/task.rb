@@ -1,4 +1,4 @@
 class Task < ActiveRecord::Base
-  validates :description, presence: true
   belongs_to :project
+  validates :description, presence: true
 end
