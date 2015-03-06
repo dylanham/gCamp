@@ -28,7 +28,7 @@ feature 'user should be able to go crud tasks' do
     click_on 'New Task'
     fill_in 'Description', with: 'Do Work'
     fill_in 'Due date', with: '09172016'
-    click_on 'Create'
+    click_on 'Create Task'
     within '.alert-success' do
       expect(page).to have_content 'Task was successfully created'
     end
