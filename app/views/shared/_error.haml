@@ -1,6 +1,6 @@
 - if object.errors.any?
   .row
-    .col-md-7.col-md-offset-2
+    %div{ class: "col-md-7 #{offset_option}" }
       .alert.alert-danger
         %h3
           = pluralize(object.errors.count, "error")
