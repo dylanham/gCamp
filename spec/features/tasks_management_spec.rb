@@ -69,7 +69,7 @@ feature 'user should be able to go crud tasks' do
     task = create_task(project)
     visit project_tasks_path(project)
     expect(page).to have_content task.description
-    click_on 'Delete'
+    find('.glyphicon-remove').click
     expect(page).to have_no_content task.description
   end
 

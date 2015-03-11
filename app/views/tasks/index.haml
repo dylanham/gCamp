@@ -17,9 +17,12 @@
         - if task.complete
           %td.col-md-1
             %s= link_to task.description, project_task_path(@project, task)
+            %span.badge= task.comments.count
         - else
-          %td.col-md-1= link_to task.description, project_task_path(@project, task)
+          %td.col-md-1
+            = link_to task.description, project_task_path(@project, task)
+            %span.badge= task.comments.count
         %td.col-md-2= task.due_date.try(:strftime, "%m/%d/%Y")
         %td.col-md-2.text-right
           = link_to 'Edit', edit_project_task_path(@project, task), class: 'btn btn-info'
-          = link_to 'Delete', project_task_path(@project, task), class: 'btn btn-danger', method: :delete
+          = link_to '', project_task_path(@project, task), class: 'btn btn-danger', method: :delete, class: 'glyphicon glyphicon-remove'
