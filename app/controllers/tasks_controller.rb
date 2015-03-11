@@ -23,6 +23,8 @@ class TasksController < ApplicationController
   end
 
   def show
+    @comments = @task.comments.all
+    @comment = @task.comments.new
   end
 
   def edit
@@ -58,5 +60,6 @@ class TasksController < ApplicationController
   def find_and_set_project
     @project = Project.find(params[:project_id])
   end
+
 
 end
