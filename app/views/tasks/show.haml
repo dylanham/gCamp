@@ -2,7 +2,7 @@
   .row
     .col-md-12
       .pull-right
-        %h1= link_to 'Edit',edit_project_task_path(@project, @task), class:'btn btn-info'
+        %h1= link_to 'Edit',edit_project_task_path(@task.project_id, @task), class:'btn btn-info'
       - if @task.complete
         %h1
           %s=@task.description.downcase.titleize
@@ -10,8 +10,8 @@
         %h1= @task.description.downcase.titleize
 %ol.breadcrumb
   %li= link_to 'Projects', projects_path
-  %li= link_to @project.name, project_path(@project)
-  %li= link_to 'Tasks',project_tasks_path(@project)
+  %li= link_to @task.project.name, project_path(@task.project_id)
+  %li= link_to 'Tasks',project_tasks_path(@task.project_id)
   %li.active= @task.description
 .row
   .col-md-12
@@ -19,3 +19,19 @@
       %p
         %strong Due Date:
         = @task.due_date.strftime("%m/%d/%Y")
+- @comments.each do |comment|
+  .row
+    .col-md-3
+      %p= link_to comment.user.full_name, user_path(comment.user_id)
+      .text-muted
+        %p= time_ago_in_words(comment.created_at)
+      %br
+    .col-md-9
+      %p= comment.content
+.row
+  .col-md-9.col-md-offset-3
+    = form_for [@task, @comment] do |f|
+      .form-group
+        = f.text_area :content, class: 'form-control'
+      .form-group
+        = f.submit class: 'btn btn-primary'
