@@ -19,6 +19,7 @@
       %p
         %strong Due Date:
         = @task.due_date.strftime("%m/%d/%Y")
+    %h3 Comments
 - @comments.each do |comment|
   .row
     .col-md-3
