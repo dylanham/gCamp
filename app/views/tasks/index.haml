@@ -15,11 +15,11 @@
     - @tasks.each do |task|
       %tr
         - if task.complete
-          %td.col-md-1
+          %td.col-md-3
             %s= link_to task.description, project_task_path(@project, task)
             %span.badge= task.comments.count
         - else
-          %td.col-md-1
+          %td.col-md-3
             = link_to task.description, project_task_path(@project, task)
             %span.badge= task.comments.count
         %td.col-md-2= task.due_date.try(:strftime, "%m/%d/%Y")
