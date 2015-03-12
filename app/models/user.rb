@@ -10,6 +10,3 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".titleize
   end
 end
-
-
-Membership.joins('INNER JOIN users ON users.id = memberships.user_id')
