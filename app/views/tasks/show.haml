@@ -23,9 +23,14 @@
 - @comments.each do |comment|
   .row
     .col-md-3
-      %p= link_to comment.user.full_name, user_path(comment.user_id)
-      %p.text-muted= "#{time_ago_in_words(comment.created_at)} ago"
-      %br
+      - if comment.user_id
+        %p= link_to comment.user.full_name, user_path(comment.user_id)
+        %p.text-muted= "#{time_ago_in_words(comment.created_at)} ago"
+        %br
+      - else
+        %p (deleted user)
+        %p.text-muted= "#{time_ago_in_words(comment.created_at)} ago"
+        %br
     .col-md-9
       %p= comment.content
 .row
