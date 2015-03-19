@@ -50,9 +50,8 @@ feature 'user should be able to go crud tasks' do
   end
 
   scenario 'should be able to update a task' do
-    project = create_project
-    task = create_task(project)
-    visit project_tasks_path(project)
+    task = create_task
+    visit project_tasks_path(task.project_id)
     expect(page).to have_content task.description
     click_on 'Edit'
     fill_in 'Description', with: 'This test has been updated'
@@ -65,18 +64,16 @@ feature 'user should be able to go crud tasks' do
   end
 
   scenario 'should be able to delete a task' do
-    project = create_project
-    task = create_task(project)
-    visit project_tasks_path(project)
+    task = create_task
+    visit project_tasks_path(task.project_id)
     expect(page).to have_content task.description
     find('.glyphicon-remove').click
     expect(page).to have_no_content task.description
   end
 
   scenario 'should be able to visit the show page of a task' do
-    project = create_project
-    task = create_task(project)
-    visit project_tasks_path(project)
+    task = create_task
+    visit project_tasks_path(task.project_id)
     click_on task.description
     within '.breadcrumb' do
       expect(page).to have_content task.description

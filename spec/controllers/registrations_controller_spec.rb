@@ -23,7 +23,8 @@ describe RegistrationsController do
         }.to change { User.all.count }.by(1)
 
         user = User.last
-        expect(session[:user_id]).to eq(user.id)
+        expect(session[:user_id]).to eq(user.id
+        )
         expect(user.first_name).to eq "Billy"
         expect(user.last_name).to eq "Bob"
         expect(flash[:notice]).to eq "You have successfully signed up"
