@@ -10,7 +10,6 @@ namespace :cleanup do
   task list: :environment do
     remove_these = Membership.where.not(project_id: Project.pluck(:id)).delete_all
     puts "| #{remove_these} memberships where their projects have already been deleted were removed"
-
   end
 
   desc 'Removes all tasks where their projects have been deleted'
