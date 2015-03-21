@@ -1,4 +1,4 @@
-require 'Rails_helper'
+require 'rails_helper'
 
 describe WelcomeController do
   describe 'GET #index' do

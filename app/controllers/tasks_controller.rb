@@ -24,7 +24,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:project_id])
     @comments = @task.comments.all
     @comment = @task.comments.new
   end
