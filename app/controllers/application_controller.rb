@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_should_not_see
-    render file: 'public/404.html', status: :not_found, layout: false unless current_user.id == @user.id
+    render file: 'public/404.html', status: :not_found, layout: false unless current_user.id == @user.id || current_user.admin
   end
 
   def ensure_project_member_or_admin

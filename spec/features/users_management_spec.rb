@@ -51,6 +51,21 @@ feature 'User should be able to crud users' do
     expect(page).to have_content 'New First Name'
   end
 
+  scenario 'A admin can edit or delete other users' do
+  click_on 'Sign Out'
+  user = create_user(admin: true)
+  click_on 'Sign In'
+  fill_in 'Email', with: user.email
+  fill_in 'Password', with: user.password
+  within '.form' do
+    click_on 'Sign In'
+  end
+  user2 = create_user
+  visit edit_user_path(user2)
+  expect(page).to have_content 'Delete User'
+  click_on 'Delete User'
+  end
+
   scenario 'A user cannot delete or edit another user and should see a 404' do
     user2 = create_user
     visit edit_user_path(user2)

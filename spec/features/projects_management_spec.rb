@@ -75,26 +75,25 @@ feature 'It should have full crud access of projects' do
     end
   end
 
-  # scenario 'should be able to delete a project that they own' do
-  #   visit projects_path
-  #   within '.page-header' do
-  #     click_on 'New Project'
-  #   end
-  #   fill_in 'Name', with: 'Remove Test'
-  #   click_on 'Create Project'
-  #   expect(page).to have_content 'Remove Test'
-  #   within '.breadcrumb' do
-  #     click_on 'Remove Test'
-  #   end
-  #
-  #   within '.well' do
-  #     click_on 'Delete'
-  #   end
-  #   click_on 'Ok'
-  #   within '.alert-success' do
-  #     expect(page).to have_content 'Project was successfully deleted'
-  #   end
-  #   expect(page).to have_no_content 'Delete Test'
-  # end
+  scenario 'should be able to delete a project that they own' do
+    visit projects_path
+    within '.page-header' do
+      click_on 'New Project'
+    end
+    fill_in 'Name', with: 'Remove Test'
+    click_on 'Create Project'
+    expect(page).to have_content 'Remove Test'
+    within '.breadcrumb' do
+      click_on 'Remove Test'
+    end
+
+    within '.well' do
+      click_on 'Delete'
+    end
+    within '.alert-success' do
+      expect(page).to have_content 'Project was successfully deleted'
+    end
+    expect(page).to have_no_content 'Delete Test'
+  end
 
 end

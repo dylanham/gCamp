@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only:[:show, :edit, :update]
   before_action :ensure_current_user
   before_action :ensure_project_member_or_admin, only:[:show]
-  before_action :ensure_project_owner_or_admin, only:[:edit, :update, :destroy]
+  before_action :ensure_project_owner_or_admin, only:[:edit, :update]
 
   def index
     @projects = current_user.projects
