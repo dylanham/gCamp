@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only:[:show, :edit, :update]
+  before_action :set_project, except:[:index, :new, :create]
   before_action :ensure_current_user
-  before_action :ensure_project_member_or_admin, only:[:show]
-  before_action :ensure_project_owner_or_admin, only:[:edit, :update]
+  before_action :ensure_project_member_or_admin, except: [:index, :new, :create]
+  before_action :ensure_project_owner_or_admin, only:[:edit, :update, :destroy]
 
   def index
     @projects = current_user.projects
@@ -42,7 +42,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
     flash[:notice] = "Project was successfully deleted"
     redirect_to projects_path
