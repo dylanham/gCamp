@@ -5,13 +5,14 @@
   %li= link_to @project.name, project_path(@project)
   %li.active Memberships
 = render partial: 'shared/error', locals:{ object: @membership, offset_option: '' }
-.row
-  .col-md-7
-    .well
-      = form_for [@project, @membership], html:{class: 'form-inline'} do |f|
-        = f.collection_select :user_id, User.all, :id, :full_name, {prompt: 'Please select a user...'}, {class: 'form-control'}
-        = f.collection_select :role, Membership::ROLES, :to_s, :to_s, {}, class: 'form-control'
-        = f.submit 'Add New Member', class: 'btn btn-primary'
+- if current_user.admin_or_owner?(@project)
+  .row
+    .col-md-7
+      .well
+        = form_for [@project, @membership], html:{class: 'form-inline'} do |f|
+          = f.collection_select :user_id, User.all, :id, :full_name, {prompt: 'Please select a user...'}, {class: 'form-control'}
+          = f.collection_select :role, Membership::ROLES, :to_s, :to_s, {}, class: 'form-control'
+          = f.submit 'Add New Member', class: 'btn btn-primary'
 .row
   .col-md-7
     %table.table
@@ -21,6 +22,13 @@
             = form_for [@project, membership], html:{class: 'form-inline'} do |f|
               %tr
                 %td= link_to membership.user.full_name, user_path(membership.user_id)
-                %td= f.collection_select :role, Membership::ROLES, :to_s, :to_s, {}, class: 'form-control'
-                %td= f.submit 'Update', class: 'btn btn-primary'
-                %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
+                - if current_user.admin_or_owner?(@project)
+                  %td= f.collection_select :role, Membership::ROLES, :to_s, :to_s, {}, class: 'form-control'
+                  %td= f.submit 'Update', class: 'btn btn-primary'
+                - if current_user.admin_or_owner?(@project) || current_user.id == membership.user_id
+                  - if @project.memberships.where(role: 'Owner').count == 1 && membership.role == 'Owner'
+                    %td You are the last owner
+                  - else
+                    %td= link_to '', project_membership_path(@project, membership), method: :delete, class: "glyphicon glyphicon-remove"
+                - else
+                  %td
