@@ -1,9 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only:[:show, :edit, :update]
   before_action :ensure_current_user
-  
+  before_action :ensure_project_member_or_admin, only:[:show]
+  before_action :ensure_project_owner_or_admin, only:[:edit, :update, :destroy]
+
   def index
-    @projects = Project.all
+    @projects = current_user.projects
+    @admin_projects = Project.all
   end
 
   def show
@@ -14,11 +17,13 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
-    if @project.save
+    project = Project.new(project_params)
+    if project.save
+      ProjectManagement.assign_current_user_as_project_owner(project, current_user)
       flash[:notice] = "Project was successfully created"
-      redirect_to @project
+      redirect_to project_tasks_path(project)
     else
+      @project = project
       render :new
     end
   end
@@ -37,8 +42,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    project = Project.find(params[:id])
-    project.destroy
+    @project = Project.find(params[:id])
+    @project.destroy
     flash[:notice] = "Project was successfully deleted"
     redirect_to projects_path
   end
