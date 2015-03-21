@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update]
   before_action :ensure_current_user
   before_action :find_and_set_project
+  before_action :ensure_project_member_or_admin
 
   def index
     @tasks = @project.tasks
@@ -23,6 +24,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @project = Project.find(params[:project_id])
     @comments = @task.comments.all
     @comment = @task.comments.new
   end
