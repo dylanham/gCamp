@@ -28,7 +28,7 @@ describe RegistrationsController do
         expect(user.first_name).to eq "Billy"
         expect(user.last_name).to eq "Bob"
         expect(flash[:notice]).to eq "You have successfully signed up"
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to new_project_path
       end
     end
 

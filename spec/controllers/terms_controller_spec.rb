@@ -12,7 +12,7 @@ describe TermsController do
   describe 'GET #about_page' do
     it 'renders the about_page view' do
       get :about_page
-      
+
       expect(response).to render_template(:about_page)
     end
 
@@ -20,7 +20,6 @@ describe TermsController do
       project = create_project
 
       get :about_page
-
       expect(assigns(:projects)).to eq [project]
     end
 
