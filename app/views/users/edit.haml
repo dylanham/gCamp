@@ -6,4 +6,4 @@
 = render 'form'
 .row
   .col-md-4.col-md-offset-2.text-center
-    .well= link_to 'Delete User',user_path(@user), class:'btn btn-danger',method: :delete
+    .well= link_to 'Delete User',user_path(@user), class:'btn btn-danger',method: :delete, data:{confirm: 'Are you sure?'}
