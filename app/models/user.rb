@@ -6,7 +6,16 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :memberships, dependent: :destroy
   has_many :comments
+  has_many :projects, through: :memberships
   def full_name
     "#{first_name} #{last_name}".titleize
+  end
+
+  def admin_or_member?(project)
+    self.admin || self.memberships.find_by(project_id: project.id) != nil
+  end
+
+  def admin_or_owner?(project)
+    self.admin || self.memberships.find_by(project_id: project.id).role == 'Owner'
   end
 end
