@@ -51,13 +51,10 @@ feature 'User should be able to crud users' do
     expect(page).to have_content 'New First Name'
   end
 
-  scenario 'should be able to delete a user' do
-    user2 = create_user(email: 'second@example.com')
+  scenario 'A user cannot delete or edit another user and should see a 404' do
+    user2 = create_user
     visit edit_user_path(user2)
-    click_on 'Delete User'
-    expect(current_path).to eq(users_path)
-    expect(page).to have_content 'User was successfully delete'
-    expect(page).to have_no_content 'second@example.com'
+    expect(page).to have_content '404'
   end
 
   scenario 'should see validation errors' do

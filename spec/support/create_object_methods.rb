@@ -3,6 +3,7 @@ def create_user(options = {})
     first_name: 'billy',
     last_name: 'bob',
     email: "billybob#{rand(10000)+1}@example.com",
+    admin: false,
     password: 'test'
   }.merge(options))
 end

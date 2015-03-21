@@ -1,9 +1,11 @@
 require 'rails_helper'
 
-feature 'user should be able to go crud tasks' do
+feature 'A member of a project user should be able to go crud tasks' do
 
   before do
     user = create_user
+    @project = create_project
+    @project.memberships.create!(user_id: user.id, role: 'Member')
     visit root_path
     click_on 'Sign In'
     fill_in 'Email', with: user.email
@@ -13,17 +15,15 @@ feature 'user should be able to go crud tasks' do
     end
   end
 
-  scenario 'checks to see if scenario can find Tasks in the header' do
-    project = create_project
-    visit project_tasks_path(project)
+  scenario 'checks to see if can find Tasks in the header' do
+    visit project_tasks_path(@project)
     within '.page-header' do
       expect(page).to have_content 'Tasks'
     end
   end
 
   scenario 'should be able to make a new task' do
-    project = create_project
-    visit project_tasks_path(project)
+    visit project_tasks_path(@project)
     click_on 'New Task'
     fill_in 'Description', with: 'Do Work'
     fill_in 'Due date', with: '09172016'
@@ -39,8 +39,7 @@ feature 'user should be able to go crud tasks' do
   end
 
   scenario 'should not be able to make a blank task' do
-    project = create_project
-    visit project_tasks_path(project)
+    visit project_tasks_path(@project)
     click_on 'New Task'
     click_on 'Create'
     within '.alert-danger' do
@@ -50,9 +49,12 @@ feature 'user should be able to go crud tasks' do
   end
 
   scenario 'should be able to update a task' do
-    task = create_task
-    visit project_tasks_path(task.project_id)
-    expect(page).to have_content task.description
+    visit project_tasks_path(@project)
+    click_on 'New Task'
+    fill_in 'Description', with: 'Do Work'
+    fill_in 'Due date', with: '09172016'
+    click_on 'Create Task'
+    expect(page).to have_content 'Do Work'
     click_on 'Edit'
     fill_in 'Description', with: 'This test has been updated'
     click_on 'Update Task'
@@ -64,20 +66,16 @@ feature 'user should be able to go crud tasks' do
   end
 
   scenario 'should be able to delete a task' do
-    task = create_task
-    visit project_tasks_path(task.project_id)
-    expect(page).to have_content task.description
+    visit project_tasks_path(@project)
+    click_on 'New Task'
+    fill_in 'Description', with: 'Do Work'
+    fill_in 'Due date', with: '09172016'
+    click_on 'Create Task'
+    expect(page).to have_content 'Do Work'
+    expect(page).to have_content 'Do Work'
+    visit project_tasks_path(@project)
     find('.glyphicon-remove').click
-    expect(page).to have_no_content task.description
-  end
-
-  scenario 'should be able to visit the show page of a task' do
-    task = create_task
-    visit project_tasks_path(task.project_id)
-    click_on task.description
-    within '.breadcrumb' do
-      expect(page).to have_content task.description
-    end
+    expect(page).to have_no_content 'Do Work'
   end
 
   scenario 'should see an error if not logged in' do

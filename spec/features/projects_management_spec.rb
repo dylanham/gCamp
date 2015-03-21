@@ -61,7 +61,7 @@ feature 'It should have full crud access of projects' do
     end
     fill_in 'Name', with: 'Update Test'
     click_on 'Create Project'
-    within '.table' do
+    within '.breadcrumb' do
       click_on 'Update Test'
     end
     click_on 'Edit'
@@ -70,20 +70,31 @@ feature 'It should have full crud access of projects' do
     within '.alert-success' do
       expect(page).to have_content 'Project was successfully updated'
     end
-    within '.table' do
+    within '.page-header' do
       expect(page).to have_content 'This is a test update'
     end
   end
 
-  scenario 'should be able to delete a project' do
-    Project.create!(name: 'This is a delete test')
-    visit projects_path
-    click_on 'This is a delete test'
-    click_on 'Delete'
-    within '.alert-success' do
-      expect(page).to have_content 'Project was successfully deleted'
-    end
-    expect(page).to have_no_content 'This is a delete test'
-  end
+  # scenario 'should be able to delete a project that they own' do
+  #   visit projects_path
+  #   within '.page-header' do
+  #     click_on 'New Project'
+  #   end
+  #   fill_in 'Name', with: 'Remove Test'
+  #   click_on 'Create Project'
+  #   expect(page).to have_content 'Remove Test'
+  #   within '.breadcrumb' do
+  #     click_on 'Remove Test'
+  #   end
+  #
+  #   within '.well' do
+  #     click_on 'Delete'
+  #   end
+  #   click_on 'Ok'
+  #   within '.alert-success' do
+  #     expect(page).to have_content 'Project was successfully deleted'
+  #   end
+  #   expect(page).to have_no_content 'Delete Test'
+  # end
 
 end
