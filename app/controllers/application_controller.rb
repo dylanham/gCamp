@@ -30,9 +30,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def ensure_admin_or_owner_or_self_user
+    if !(current_user.admin_or_owner?(@project) || current_user == @membership.user)
+      flash[:error] = 'You do not have access'
+      redirect_to project_memberships_path(@project)
+    end
+  end
+
   def ensure_project_owner_or_admin
     if !current_user.admin_or_owner?(@project)
-      flash[:warning] = "You do not have access"
+      flash[:warning] = 'You do not have access'
       redirect_to projects_path
     end
   end
