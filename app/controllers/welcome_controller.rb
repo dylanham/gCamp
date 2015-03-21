@@ -1,5 +1,5 @@
-class WelcomeController < ApplicationController
-  
+class WelcomeController < MarketingController
+
   def index
     @quotes = {
       "Cayla Hayes"=> '"gCamp has changed my life! It\'s the best tool I\'ve ever used."',

@@ -1,6 +1,6 @@
-class TermsController < ApplicationController
+class TermsController < MarketingController
 
-  def index
+  def terms_page
   end
 
   def about_page

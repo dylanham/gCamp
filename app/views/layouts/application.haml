@@ -7,7 +7,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = render 'layouts/nav'
+    = render 'layouts/internal_nav'
     .container
       - if flash[:notice]
         .alert.alert-success
@@ -17,4 +17,4 @@
           = flash[:warning]
       = yield
 
-    = render 'layouts/footer'
+    = render 'layouts/internal_footer'
