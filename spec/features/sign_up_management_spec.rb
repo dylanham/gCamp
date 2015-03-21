@@ -29,7 +29,7 @@ feature 'User should be able to log into gCamp and do things' do
     within '.form' do
       click_on 'Sign Up'
     end
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(new_project_path)
   end
 
   scenario 'should see validation messages when trying to sign up with with missing information' do

@@ -4,6 +4,7 @@ feature 'It should have full crud access of projects' do
 
   before do
     User.destroy_all
+    Project.destroy_all
     user = create_user
     visit root_path
     click_on 'Sign In'
@@ -30,7 +31,9 @@ feature 'It should have full crud access of projects' do
 
   scenario 'should be able to create a new project' do
     visit projects_path
-    click_on 'New Project'
+    within '.page-header' do
+      click_on 'New Project'
+    end
     fill_in 'Name', with: 'Test Project'
     click_on 'Create Project'
     within '.alert-success' do
@@ -41,7 +44,9 @@ feature 'It should have full crud access of projects' do
 
   scenario 'should see an error if trying to create a nameless project' do
     visit projects_path
-    click_on 'New Project'
+    within '.page-header' do
+      click_on 'New Project'
+    end
     click_on 'Create Project'
     within '.alert-danger' do
       expect(page).to have_content '1 error prohibited this form from being saved:'
@@ -49,17 +54,25 @@ feature 'It should have full crud access of projects' do
     end
   end
 
-  scenario 'should be able to update a project' do
-    Project.create!(name: 'This is a test')
+  scenario 'should be able to update a project that they own' do
     visit projects_path
-    click_on 'This is a test'
+    within '.page-header' do
+      click_on 'New Project'
+    end
+    fill_in 'Name', with: 'Update Test'
+    click_on 'Create Project'
+    within '.table' do
+      click_on 'Update Test'
+    end
     click_on 'Edit'
     fill_in 'Name', with: 'This is a test update'
     click_on 'Update Project'
     within '.alert-success' do
       expect(page).to have_content 'Project was successfully updated'
     end
-    expect(page).to have_content 'This is a test update'
+    within '.table' do
+      expect(page).to have_content 'This is a test update'
+    end
   end
 
   scenario 'should be able to delete a project' do

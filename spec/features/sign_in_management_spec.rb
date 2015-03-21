@@ -30,7 +30,7 @@ feature 'Users should be able to sign in' do
     expect(page).to have_content 'Email / Password combination is invalid'
   end
 
-  scenario 'should be able routed to root page after signing in' do
+  scenario 'should be able routed to projects index after signing in' do
     visit faq_path
     click_on 'Sign In'
     fill_in 'Email', with: @user.email
@@ -38,7 +38,7 @@ feature 'Users should be able to sign in' do
     within '.form' do
       click_on 'Sign In'
     end
-    expect(current_path).to eq(root_path)
+    expect(current_path).to eq(projects_path)
   end
 
 end
