@@ -30,15 +30,15 @@ feature 'User should be able to crud users' do
   scenario 'should be able to create a new user' do
     visit users_path
     click_on 'New User'
-    fill_in 'First Name', with: 'New'
-    fill_in 'Last Name', with: 'User'
+    fill_in 'First Name', with: 'Liam'
+    fill_in 'Last Name', with: 'Ham'
     fill_in 'Email', with: 'newuser@example.com'
     fill_in 'Password', with: '1234'
     fill_in 'Password Confirmation', with: '1234'
     click_on 'Create User'
     expect(current_path).to eq(users_path)
     expect(page).to have_content 'User was successfully created'
-    expect(page).to have_content 'newuser@example.com'
+    expect(page).to have_content 'Liam Ham'
   end
 
   scenario 'should be able to update a new user' do
