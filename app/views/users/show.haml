@@ -1,13 +1,15 @@
 .page-header
   .row
     .col-md-12
-      .pull-right
-        %h1= link_to 'Edit',edit_user_path(@user), class:'btn btn-info'
+      -if current_user.id == @user.id || current_user.admin
+        .pull-right
+          %h1= link_to 'Edit',edit_user_path(@user), class:'btn btn-info'
       %h1= @user.full_name
 %dl.dl-horizontal
   %dt First Name
   %dd= @user.first_name.capitalize
   %dt Last Name
   %dd= @user.last_name.capitalize
-  %dt Email
-  %dd= mail_to @user.email.downcase
+  - if current_user.id == @user.id || current_user.admin
+    %dt Email
+    %dd= mail_to @user.email.downcase
