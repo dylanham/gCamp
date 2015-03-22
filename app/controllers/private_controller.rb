@@ -1,7 +1,6 @@
 class PrivateController < ApplicationController
   before_action :ensure_current_user
   helper_method :current_user_or_admin
-  helper_method :admin_or_comember_or_current_user
 
   def ensure_current_user
     if !current_user
@@ -9,15 +8,6 @@ class PrivateController < ApplicationController
       session[:return_to] ||= request.fullpath
       redirect_to sign_in_path
     end
-  end
-
-  def admin_or_comember_or_current_user(user)
-    comember = if current_user.projects.size > 0
-      current_user.projects.each do |project|
-        project.users.include?(user) ? (return true) : (return false)
-      end
-    end
-    user == current_user || comember || current_user.admin
   end
 
   def current_user_or_admin(user)

@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
   def admin_or_owner?(project)
     self.admin || self .memberships.find_by(project_id: project.id) != nil && self.memberships.find_by(project_id: project.id).role == 'Owner'
   end
+
+  def project_member_of(user)
+   user.projects.map(&:users).flatten.include?(self)
+ end
 end

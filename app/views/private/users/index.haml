@@ -12,7 +12,7 @@
       %tr
         %td.col-md-1= link_to user.full_name ,user_path(user)
         %td.col-md-1
-          - if admin_or_comember_or_current_user(user)
+          - if current_user.admin || current_user.project_member_of(user)
             = mail_to user.email.downcase
         %td.col-md-2.text-right
           - if current_user.id == user.id || current_user.admin
