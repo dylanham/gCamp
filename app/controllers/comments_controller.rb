@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class CommentsController < PrivateController
   before_action :find_and_set_task, only:[:create]
   def create
     comment = Comment.new(comment_params)

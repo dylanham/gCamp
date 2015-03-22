@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class ProjectsController < PrivateController
   before_action :set_project, except:[:index, :new, :create]
   before_action :ensure_current_user
   before_action :ensure_project_member_or_admin, except: [:index, :new, :create]

@@ -1,10 +1,4 @@
-class AuthenticationController < MarketingController
-
-  def destroy
-    session.clear
-    flash[:notice] = "You have successfully logged out"
-    redirect_to root_path
-  end
+class AuthenticationController < PublicController
 
   def new
   end
@@ -19,6 +13,12 @@ class AuthenticationController < MarketingController
       flash[:error] = "Email / Password combination is invalid"
       render :new
     end
+  end
+
+  def destroy
+    session.clear
+    flash[:notice] = "You have successfully logged out"
+    redirect_to root_path
   end
 
 end

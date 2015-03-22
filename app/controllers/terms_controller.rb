@@ -1,4 +1,4 @@
-class TermsController < MarketingController
+class TermsController < PublicController
 
   def terms_page
   end

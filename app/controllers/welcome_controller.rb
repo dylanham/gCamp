@@ -1,4 +1,4 @@
-class WelcomeController < MarketingController
+class WelcomeController < PublicController
 
   def index
     @quotes = {

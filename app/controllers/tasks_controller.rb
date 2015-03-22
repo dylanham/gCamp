@@ -1,4 +1,4 @@
-class TasksController < ApplicationController
+class TasksController < PrivateController
   before_action :set_task, only: [:show, :edit, :update]
   before_action :ensure_current_user
   before_action :find_and_set_project
