@@ -1,12 +1,12 @@
 class MembershipsController < ApplicationController
   before_action :find_and_set_project
   before_action :ensure_project_member_or_admin, only:[:index]
-  before_action :ensure_project_owner_or_admin, only:[:update]
+  before_action :ensure_project_owner_or_admin, only:[:create, :update]
   before_action :set_membership_and_verify_more_than_one_owner, only:[:update, :destroy]
   before_action :ensure_admin_or_owner_or_self_user, only:[:destroy]
 
   def index
-    @membership = @project.memberships.new
+    @membership = Membership.new
   end
 
   def create
@@ -56,5 +56,4 @@ class MembershipsController < ApplicationController
       redirect_to project_memberships_path(@project)
     end
   end
-
 end
