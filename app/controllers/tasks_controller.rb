@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   before_action :ensure_current_user
   before_action :find_and_set_project
   before_action :ensure_project_member_or_admin
+  before_action :ensure_task_belongs_to_project, only:[:show]
 
   def index
     @tasks = @project.tasks
@@ -62,5 +63,11 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
+  def ensure_task_belongs_to_project
+    if !@project.tasks.include?(@task)
+      flash[:warning] = 'You do not have access to that project'
+      redirect_to projects_path
+    end
+  end
 
 end
