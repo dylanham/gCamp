@@ -1,6 +1,5 @@
-class UsersController < PrivateController
+class Private::UsersController < PrivateController
   before_action :set_user, only:[:show,:edit,:update]
-  before_action :ensure_current_user
   before_action :current_user_should_not_see, only:[:edit, :update, :destroy]
 
   def index

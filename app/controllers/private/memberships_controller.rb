@@ -1,4 +1,4 @@
-class MembershipsController < PrivateController
+class Private::MembershipsController < PrivateController
   before_action :find_and_set_project
   before_action :set_membership, only: [:update, :destroy]
   before_action :ensure_membership_belongs_to_project, only: [:update, :destroy]

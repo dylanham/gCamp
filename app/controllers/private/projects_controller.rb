@@ -1,6 +1,5 @@
-class ProjectsController < PrivateController
+class Private::ProjectsController < PrivateController
   before_action :set_project, except:[:index, :new, :create]
-  before_action :ensure_current_user
   before_action :ensure_project_member_or_admin, except: [:index, :new, :create]
   before_action :ensure_project_owner_or_admin, only:[:edit, :update, :destroy]
 

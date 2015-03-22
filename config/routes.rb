@@ -12,12 +12,12 @@ Rails.application.routes.draw do
   post'sign-in',  to: 'authentication#create'
 
 
-  resources :tasks do
+  resources :tasks, module: :private do
     resources :comments, only:[:create]
   end
 
-  resources :users
-  resources :projects do
+  resources :users, module: :private
+  resources :projects, module: :private do
     resources :tasks
     resources :memberships, except:[:show, :edit]
   end
