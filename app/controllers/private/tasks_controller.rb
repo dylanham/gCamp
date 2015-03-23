@@ -33,7 +33,7 @@ class Private::TasksController < PrivateController
   def update
     if @task.update(task_params)
        flash[:notice] = "Task was successfully updated"
-       redirect_to project_task_path(@project, task)
+       redirect_to project_task_path(@project, @task)
     else
       render :edit
     end
