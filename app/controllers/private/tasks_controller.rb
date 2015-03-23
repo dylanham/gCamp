@@ -1,6 +1,6 @@
 class Private::TasksController < PrivateController
-  before_action :set_task, only: [:show, :edit, :update]
   before_action :find_and_set_project
+  before_action :set_task, only: [:show, :edit, :update]
   before_action :ensure_project_member_or_admin
 
   def index
@@ -54,7 +54,6 @@ class Private::TasksController < PrivateController
   end
 
   def set_task
-    find_and_set_project
     @task = Task.where(project_id: @project.id).find(params[:id])
   end
 

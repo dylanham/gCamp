@@ -51,7 +51,6 @@ class Private::MembershipsController < PrivateController
   end
 
   def set_membership
-    find_and_set_project
     @membership = Membership.where(project_id: @project.id).find(params[:id])
   end
 

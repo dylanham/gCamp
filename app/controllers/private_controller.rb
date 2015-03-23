@@ -1,6 +1,5 @@
 class PrivateController < ApplicationController
   before_action :ensure_current_user
-  helper_method :current_user_or_admin
 
   def ensure_current_user
     if !current_user
