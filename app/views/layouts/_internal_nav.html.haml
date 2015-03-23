@@ -8,11 +8,9 @@
         = link_to "gCamp", projects_path, class:"navbar-brand"
         %ul.nav.navbar-nav
           %li.dropdown
-            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :role => "button"}
+            = link_to('#', class: 'dropdown-toggle', data:{toggle: 'dropdown'}, role: 'button') do
               Projects
-            -# = link_to('#', class: 'dropdown-toggle', data:{toggle: 'dropdown'}, role: 'button') do
-            -#   Projects
-            -# %span.caret
+              %span.caret
             %ul.dropdown-menu{role: 'menu'}
               - current_user.projects.each do |project|
                 %li= link_to project.name, project_path(project)
