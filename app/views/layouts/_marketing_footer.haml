@@ -8,10 +8,11 @@
         = link_to "Terms", terms_path
         |
         = link_to "FAQ", faq_path
-        |
-        = link_to 'Users', users_path
-        |
-        = link_to "Projects", projects_path
+        - if current_user
+          |
+          = link_to 'Users', users_path
+          |
+          = link_to "Projects", projects_path
 
       .col-md-6
         = link_to image_tag("galvanize.png", class:"footer-img"), "https://students.gschool.it/cohorts/8/students/280"
