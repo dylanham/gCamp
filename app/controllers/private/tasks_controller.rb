@@ -8,7 +8,7 @@ class Private::TasksController < PrivateController
   end
 
   def new
-    @task = @project.tasks.new
+    @task = Task.new
   end
 
   def create
@@ -31,18 +31,16 @@ class Private::TasksController < PrivateController
   end
 
   def update
-    task = @project.tasks.find(params[:id])
-    if task.update(task_params)
+    if @task.update(task_params)
        flash[:notice] = "Task was successfully updated"
        redirect_to project_task_path(@project, task)
     else
-      @task = task
       render :edit
     end
   end
 
   def destroy
-    task = Task.find(params[:id])
+    task = Task.where(project_id: @project.id).find(params[:id])
     task.destroy
     redirect_to project_tasks_path
   end
