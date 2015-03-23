@@ -2,7 +2,6 @@ class Private::TasksController < PrivateController
   before_action :set_task, only: [:show, :edit, :update]
   before_action :find_and_set_project
   before_action :ensure_project_member_or_admin
-  before_action :ensure_task_belongs_to_project, only:[:show]
 
   def index
     @tasks = @project.tasks
@@ -55,18 +54,11 @@ class Private::TasksController < PrivateController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    find_and_set_project
+    @task = Task.where(project_id: @project.id).find(params[:id])
   end
 
   def find_and_set_project
     @project = Project.find(params[:project_id])
   end
-
-  def ensure_task_belongs_to_project
-    if !@project.tasks.include?(@task)
-      flash[:warning] = 'You do not have access to that project'
-      redirect_to projects_path
-    end
-  end
-
 end
