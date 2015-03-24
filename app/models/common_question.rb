@@ -18,7 +18,6 @@ class CommonQuestion
 
   def self.get_question_answer
     @questions_answers
-
   end
 
   def self.get_slug
