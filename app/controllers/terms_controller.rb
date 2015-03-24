@@ -1,6 +1,6 @@
 class TermsController < PublicController
 
-  def terms_page
+  def index
   end
 
   def about_page
