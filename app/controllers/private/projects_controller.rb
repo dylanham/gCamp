@@ -18,7 +18,7 @@ class Private::ProjectsController < PrivateController
   def create
     project = Project.new(project_params)
     if project.save
-      ProjectManagement.assign_current_user_as_project_owner(project, current_user)
+      ProjectManager.assign_current_user_as_project_owner(project, current_user)
       flash[:notice] = "Project was successfully created"
       redirect_to project_tasks_path(project)
     else
@@ -26,7 +26,6 @@ class Private::ProjectsController < PrivateController
       render :new
     end
   end
-
 
   def edit
   end
