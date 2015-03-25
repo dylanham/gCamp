@@ -1,9 +1,9 @@
 class Private::MembershipsController < PrivateController
   before_action :find_and_set_project
   before_action :set_membership, only: [:update, :destroy]
+  before_action :ensure_project_member_or_admin
   before_action :verify_more_than_one_owner, only:[:update, :destroy]
   before_action :ensure_admin_or_owner_or_self_user, only:[:destroy]
-  before_action :ensure_project_member_or_admin, only:[:index]
   before_action :ensure_project_owner_or_admin, only:[:create, :update]
 
   def index
