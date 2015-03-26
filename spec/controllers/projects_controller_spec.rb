@@ -45,6 +45,77 @@ describe Private::ProjectsController do
     end
   end
 
+  describe 'GET #show' do
+    it 'should have a project object' do
+      user = create_user(admin: true)
+      session[:user_id] = user.id
+      project = create_project
+
+      get :show, id: project.id
+
+      expect(assigns(:project)).to be_a(Project)
+    end
+
+    it 'should render a template for show' do
+      user = create_user(admin: true)
+      session[:user_id] = user.id
+      project = create_project
+
+      get :show, id: project.id
+
+      expect(response).to render_template :show
+    end
+
+    describe 'Permissions' do
+      it 'should redirect a non logged in user' do
+        project = create_project
+
+        get :show, id: project.id
+
+        expect(flash[:warning]).to eq 'You must sign in'
+        expect(response).to redirect_to sign_in_path
+      end
+      it 'should redirect a non member to projects path' do
+        user = create_user
+        session[:user_id] = user.id
+        project = create_project
+
+        get :show, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access to that project'
+        expect(response).to redirect_to projects_path
+      end
+    end
+  end
+
+  describe 'Get #new' do
+    it 'should have a new object for any logged in user' do
+      user = create_user
+      session[:user_id] = user.id
+
+      get :new
+
+      expect(assigns(:project)).to be_a_new(Project)
+    end
+
+    it 'should render the new view for any logged in user' do
+      user = create_user
+      session[:user_id] = user.id
+
+      get :new
+
+      expect(response).to render_template :new
+    end
+    describe 'Permissions' do
+      it 'should redirect a non logged in user to sign in' do
+        get :new
+
+        expect(flash[:warning]).to eq 'You must sign in'
+        expect(response).to redirect_to sign_in_path
+      end
+    end
+  end
+
   describe 'Post #create' do
     describe 'On success' do
       it 'creates a new project when valid params are passed and sets current user as owner' do
@@ -88,316 +159,207 @@ describe Private::ProjectsController do
       end
     end
   end
-  
-end
 
-#   describe 'POST #create'do
-#     describe "on success" do
-#       it "creates a new membership when valid parameters are passed and current user is Owner" do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         membership1 = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
-#         user2 = create_user
-#
-#         expect {
-#           post :create, project_id: project.id, membership: { role: 'Member', user_id: user2.id , project_id: project.id }
-#         }.to change { Membership.all.count }.by(1)
-#
-#         membership = Membership.last
-#         expect(membership.role).to eq "Member"
-#         expect(membership.user_id).to eq user2.id
-#         expect(membership.project_id).to eq project.id
-#         expect(flash[:notice]).to eq "#{membership.user.full_name} was successfully added"
-#         expect(response).to redirect_to project_memberships_path(project)
-#       end
-#
-#       it "creates a new membership when valid parameters are passed and current user is admin" do
-#         user = create_user(admin: true)
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#
-#         expect {
-#           post :create, project_id: project.id, membership: { role: 'Member', user_id: user2.id , project_id: project.id }
-#         }.to change { Membership.all.count }.by(1)
-#
-#         membership = Membership.last
-#         expect(membership.role).to eq "Member"
-#         expect(membership.user_id).to eq user2.id
-#         expect(membership.project_id).to eq project.id
-#         expect(flash[:notice]).to eq "#{membership.user.full_name} was successfully added"
-#         expect(response).to redirect_to project_memberships_path(project)
-#       end
-#     end
-#
-#     describe "on Failure" do
-#       it 'does not create a membership if it is invalid' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         membership1 = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
-#
-#         expect {
-#           post :create, project_id: project.id, membership: { role: nil, user_id: nil, project_id: nil}
-#         }.to_not change { Membership.all.count }
-#
-#         expect(assigns(:membership)).to be_a(Membership)
-#         expect(response).to render_template(:index)
-#       end
-#     end
-#
-#     describe 'permissions' do
-#       it 'should redirect a nonmember to projects path' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership = create_membership(project_id: project.id, user_id: user2.id)
-#
-#         expect {
-#           post :create, project_id: project.id, membership: { role: 'Owner', user_id: create_user, project_id: project.id }
-#         }.to_not change { Membership.all.count }
-#
-#         expect(flash[:warning]).to eq 'You do not have access to that project'
-#         expect(response).to redirect_to projects_path
-#       end
-#
-#       it 'should redirect a member who is not an owner or admin to projects path' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         membership1 = create_membership(project_id: project.id, user_id: user.id, role: 'Member')
-#         user2 = create_user
-#
-#         expect {
-#           post :create, project_id: project.id, membership: { role: 'Member', user_id: user2.id , project_id: project.id }
-#         }.to_not change { Membership.all.count }
-#
-#         expect(flash[:warning]).to eq 'You do not have access'
-#         expect(response).to redirect_to projects_path
-#       end
-#
-#       it 'should redirects non logged in users to sign in path' do
-#         expect {
-#           post :create, project_id: create_project.id
-#         }.to_not change { Membership.all.count }
-#
-#         expect(response).to redirect_to sign_in_path
-#       end
-#     end
-#   end
-#
-#   describe 'Patch #update' do
-#     describe 'On Success' do
-#       it 'should update an existing membership item if current_user is an owner and params are valid' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership1 = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
-#         membership2 = create_membership(project_id: project.id, user_id: user2.id, role: 'Member')
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership2.id, membership: { role: 'Owner' }
-#         }.to change { membership2.reload.role }.from("Member").to("Owner")
-#         expect(flash[:notice]).to eq "#{membership2.user.full_name} was successfully updated"
-#         expect(response).to redirect_to project_memberships_path(project)
-#       end
-#
-#       it 'should update an existing membership object if valid params are passed current_user is an Admin' do
-#         user = create_user(admin: true)
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership2 = create_membership(project_id: project.id, user_id: user2.id, role: 'Member')
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership2.id, membership: { role: 'Owner' }
-#         }.to change { membership2.reload.role }.from("Member").to("Owner")
-#
-#         expect(flash[:notice]).to eq "#{membership2.user.full_name} was successfully updated"
-#         expect(response).to redirect_to project_memberships_path(project)
-#       end
-#     end
-#
-#     describe 'On Failure' do
-#       it 'renders a new template' do
-#         user = create_user(admin: true)
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership = create_membership(project_id: project.id, user_id: user2.id, role: 'Member')
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership.id, membership: { role: nil }
-#         }.to_not change { membership.reload.role }
-#
-#         expect(assigns(:membership)).to eq(membership)
-#         expect(response).to render_template(:index)
-#       end
-#     end
-#
-#     describe 'Permissions' do
-#       it 'should redirect a nonmember to projects path' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership = create_membership(project_id: project.id, user_id: user2.id)
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership.id, membership: { role: 'Owner' }
-#         }.to_not change { membership.reload.role }
-#
-#         expect(flash[:warning]).to eq 'You do not have access to that project'
-#         expect(response).to redirect_to projects_path
-#       end
-#
-#       it 'should redirect a member who is not an owner or admin to projects path' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         membership = create_membership(project_id: project.id, user_id: user.id, role: 'Member')
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership.id, membership: { role: 'Owner'}
-#         }.to_not change { membership.reload.role }
-#
-#         expect(flash[:warning]).to eq 'You do not have access'
-#         expect(response).to redirect_to projects_path
-#       end
-#
-#       it 'should redirects non logged in users to sign in path' do
-#         membership = create_membership
-#         project = create_project
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership.id, membership: { role: 'Owner', user_id: create_user.id , project_id: create_project.id }
-#         }.to_not change { membership.reload.role }
-#
-#         expect(flash[:warning]).to eq 'You must sign in'
-#         expect(response).to redirect_to sign_in_path
-#       end
-#
-#       it 'should not allow updates if there is only one owner' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         membership = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
-#
-#         expect {
-#           patch :update, project_id: project.id, id: membership.id, membership: { role: 'Member' }
-#         }.to_not change { membership.reload.role }
-#
-#         expect(flash[:warning]).to eq 'Projects must have at least one owner'
-#         expect(response).to redirect_to project_memberships_path(project)
-#       end
-#     end
-#   end
-#
-#   describe 'GET #destroy' do
-#     it 'should delete a membership if current user is admin and redirects to project_memberships_path' do
-#       user = create_user(admin: true)
-#       session[:user_id] = user.id
-#       user2 = create_user
-#       project = create_project
-#       membership = create_membership(project_id: project.id, user_id: user2.id, role: 'Member')
-#
-#       expect {
-#         delete :destroy, project_id: project.id, id: membership.id
-#       }.to change { Membership.all.count }.by(-1)
-#
-#       expect(flash[:notice]).to eq "#{membership.user.full_name} was successfully removed"
-#       expect(response).to redirect_to project_memberships_path(project)
-#     end
-#
-#     it 'should delete a membership if current user is Owner and redirects to project_memberships_path' do
-#       user = create_user
-#       session[:user_id] = user.id
-#       user2 = create_user
-#       project = create_project
-#       membership = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
-#       membership2 = create_membership(project_id: project.id, user_id: user2.id, role: 'Member')
-#
-#       expect {
-#         delete :destroy, project_id: project.id, id: membership2.id
-#       }.to change { Membership.all.count }.by(-1)
-#
-#       expect(flash[:notice]).to eq "#{membership.user.full_name} was successfully removed"
-#       expect(response).to redirect_to project_memberships_path(project)
-#     end
-#
-#     it 'should delete a membership if current user is self and redirects to projects path' do
-#       user = create_user
-#       session[:user_id] = user.id
-#       project = create_project
-#       membership = create_membership(project_id: project.id, user_id: user.id, role: 'Member')
-#
-#       expect {
-#         delete :destroy, project_id: project.id, id: membership.id
-#       }.to change { Membership.all.count }.by(-1)
-#
-#       expect(flash[:notice]).to eq "#{membership.user.full_name} was successfully removed"
-#       expect(response).to redirect_to projects_path
-#     end
-#
-#     describe 'Permissions' do
-#       it 'should redirect a nonmember to projects path' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership = create_membership(project_id: project.id, user_id: user2.id)
-#
-#         expect {
-#           delete :destroy, project_id: project.id, id: membership.id
-#         }.to_not change { Membership.all.count }
-#         expect(flash[:warning]).to eq 'You do not have access to that project'
-#         expect(response).to redirect_to projects_path
-#       end
-#
-#       it 'should redirect a member who is not an owner or admin or self to projects path' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         user2 = create_user
-#         membership = create_membership(project_id: project.id, user_id: user.id, role: 'Member')
-#         membership2 = create_membership(project_id: project.id, user_id: user2.id, role: 'Member')
-#
-#         expect {
-#           delete :destroy, project_id: project.id, id: membership2.id
-#         }.to_not change { Membership.all.count }
-#
-#         expect(flash[:warning]).to eq 'You do not have access'
-#         expect(response).to redirect_to projects_path
-#       end
-#
-#       it 'should redirects non logged in users to sign in path' do
-#         membership = create_membership
-#         project = create_project
-#
-#         expect {
-#           delete :destroy, project_id: project.id, id: membership.id
-#         }.to_not change { Membership.all.count }
-#
-#         expect(flash[:warning]).to eq 'You must sign in'
-#         expect(response).to redirect_to sign_in_path
-#       end
-#
-#       it 'should not allow updates if there is only one owner' do
-#         user = create_user
-#         session[:user_id] = user.id
-#         project = create_project
-#         membership = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
-#
-#         expect {
-#           delete :destroy, project_id: project.id, id: membership.id
-#         }.to_not change { Membership.all.count }
-#
-#         expect(flash[:warning]).to eq 'Projects must have at least one owner'
-#         expect(response).to redirect_to project_memberships_path(project)
-#       end
-#     end
-#   end
-# end
+  describe 'GET #edit' do
+    it 'should have a project item for an admin and render the edit view' do
+      user = create_user(admin: true)
+      session[:user_id] = user.id
+      project = create_project
+
+      get :edit, id: project.id
+
+      expect(assigns(:project)).to eq project
+      expect(response).to render_template :edit
+    end
+    it 'should have a project item for an owner and render the edit view' do
+      user = create_user
+      session[:user_id] = user.id
+      project = create_project
+      membership = create_membership(user_id: user.id, project_id: project.id, role: 'Owner')
+
+      get :edit, id: project.id
+
+      expect(assigns(:project)).to eq project
+      expect(response).to render_template :edit
+    end
+    describe 'Permissions' do
+      it 'should redirect a non logged in user to sign up' do
+        project = create_project
+
+        get :edit, id: project.id
+
+        expect(flash[:warning]).to eq 'You must sign in'
+        expect(response).to redirect_to sign_in_path
+      end
+
+      it 'should redirect a non member to projects path' do
+        user = create_user
+        project = create_project
+        session[:user_id] = user.id
+
+        get :edit, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access to that project'
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'should redirect a member that is not an owner or admin to projects path' do
+        user = create_user
+        project = create_project
+        membership = create_membership(project_id: project.id, user_id: user.id)
+        session[:user_id] = user.id
+
+        get :edit, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access'
+        expect(response).to redirect_to projects_path
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    describe 'On success' do
+      it 'should update a project for an admin when valid params are passed' do
+        user = create_user(admin: true)
+        session[:user_id] = user.id
+        project = create_project
+
+        expect {
+          patch :update, id: project.id, project:{name: 'Updated Name'}
+        }.to change { project.reload.name }.from('Test Project').to('Updated Name')
+
+        expect(flash[:notice]).to eq 'Project was successfully updated'
+        expect(response).to redirect_to project_path(project)
+      end
+
+      it 'should update a project for an owner when valid params are passed' do
+        user = create_user
+        session[:user_id] = user.id
+        project = create_project
+        membership = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
+
+        expect {
+          patch :update, id: project.id, project:{ name: 'Update Name' }
+        }.to change { project.reload.name }.from('Test Project').to('Update Name')
+
+        expect(flash[:notice]).to eq 'Project was successfully updated'
+        expect(response).to redirect_to project_path(project)
+      end
+    end
+
+    describe 'On failure' do
+      it 'should not update a project when valid params are not passed' do
+        user = create_user(admin: true)
+        session[:user_id] = user.id
+        project = create_project
+
+        expect {
+          patch :update, id: project.id, project: { name: nil }
+        }.to_not change { project.reload.name }
+
+        expect(assigns(:project)).to eq(project)
+        expect(response).to render_template :edit
+      end
+    end
+
+    describe 'Permissions' do
+      it 'should redirect a non logged in user to sign up' do
+        project = create_project
+
+        get :update, id: project.id
+
+        expect(flash[:warning]).to eq 'You must sign in'
+        expect(response).to redirect_to sign_in_path
+      end
+
+      it 'should redirect a non member to projects path' do
+        user = create_user
+        project = create_project
+        session[:user_id] = user.id
+
+        get :update, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access to that project'
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'should redirect a member that is not an owner or admin to projects path' do
+        user = create_user
+        project = create_project
+        membership = create_membership(project_id: project.id, user_id: user.id)
+        session[:user_id] = user.id
+
+        get :update, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access'
+        expect(response).to redirect_to projects_path
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'should delete a project if current user is an admin as well as its memberships' do
+      user = create_user(admin: true)
+      session[:user_id] = user.id
+      project = create_project
+      membership = create_membership(project_id: project.id)
+
+      expect {
+        delete :destroy, id: project.id
+      }.to change { Project.all.count }.by(-1)
+
+      expect(flash[:notice]).to eq 'Project was successfully deleted'
+      expect(Membership.all.count).to eq 0
+      expect(response).to redirect_to projects_path
+    end
+
+    it 'should delete a project if current user is an owner as well as its memberships' do
+      user = create_user
+      session[:user_id] = user.id
+      project = create_project
+      membership = create_membership(project_id: project.id, user_id: user.id, role: 'Owner')
+
+      expect {
+        delete :destroy, id: project.id
+      }.to change { Project.all.count }.by(-1)
+
+      expect(flash[:notice]).to eq 'Project was successfully deleted'
+      expect(Membership.all.count).to eq 0
+      expect(response).to redirect_to projects_path
+    end
+
+    describe 'Permissions' do
+      it 'should redirect a non logged in user to sign up' do
+        project = create_project
+
+        delete :destroy, id: project.id
+
+        expect(flash[:warning]).to eq 'You must sign in'
+        expect(response).to redirect_to sign_in_path
+      end
+
+      it 'should redirect a non member to projects path' do
+        user = create_user
+        project = create_project
+        session[:user_id] = user.id
+
+        delete :destroy, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access to that project'
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'should redirect a member that is not an owner or admin to projects path' do
+        user = create_user
+        project = create_project
+        membership = create_membership(project_id: project.id, user_id: user.id)
+        session[:user_id] = user.id
+
+        delete :destroy, id: project.id
+
+        expect(flash[:warning]).to eq 'You do not have access'
+        expect(response).to redirect_to projects_path
+      end
+    end
+  end
+end

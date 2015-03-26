@@ -261,7 +261,7 @@ describe Private::MembershipsController do
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'DELETE #destroy' do
     it 'should delete a membership if current user is admin and redirects to project_memberships_path' do
       user = create_user(admin: true)
       session[:user_id] = user.id
