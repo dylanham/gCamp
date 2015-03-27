@@ -10,7 +10,7 @@ class PrivateController < ApplicationController
   end
 
   def current_user_or_admin(user)
-    user == current_user || current_user.admin
+    user.id == current_user.id || current_user.admin
   end
 
   def current_user_should_not_see

@@ -7,6 +7,11 @@ class Private::TasksController < PrivateController
     @tasks = @project.tasks
   end
 
+  def show
+    @comments = @task.comments.all
+    @comment = @task.comments.new
+  end
+
   def new
     @task = Task.new
   end
@@ -22,11 +27,6 @@ class Private::TasksController < PrivateController
     end
   end
 
-  def show
-    @comments = @task.comments.all
-    @comment = @task.comments.new
-  end
-
   def edit
   end
 
@@ -40,7 +40,7 @@ class Private::TasksController < PrivateController
   end
 
   def destroy
-    task = Task.where(project_id: @project.id).find(params[:id])
+    task = Task.find(params[:id])
     task.destroy
     redirect_to project_tasks_path
   end

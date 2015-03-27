@@ -1,5 +1,5 @@
 class Private::UsersController < PrivateController
-  before_action :set_user, only:[:show,:edit,:update]
+  before_action :set_user, only:[:show,:edit,:update, :destroy]
   before_action :current_user_should_not_see, only:[:edit, :update, :destroy]
 
   def index
@@ -33,9 +33,8 @@ class Private::UsersController < PrivateController
   end
 
   def destroy
-    user = User.find(params[:id])
-    UserManagement.remove_user_id_on_comments(user)
-    user.destroy
+    UserManagement.remove_user_id_on_comments(@user)
+    @user.destroy
     flash[:notice] = "User was successfully deleted"
     redirect_to users_path
   end
