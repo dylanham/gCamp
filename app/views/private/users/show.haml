@@ -13,5 +13,6 @@
   - if current_user.admin || current_user.project_member_of(@user)
     %dt Email
     %dd= mail_to @user.email.downcase
+  - if @user.pivotal_tracker_token
     %dt Pivotal Tracker Token
     %dd= @user.pivotal_tracker_privacy
