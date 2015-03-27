@@ -21,5 +21,10 @@ class User < ActiveRecord::Base
 
   def project_member_of(user)
    user.projects.map(&:users).flatten.include?(self)
- end
+  end
+
+  def pivotal_tracker_privacy
+    number_of_stars = self.pivotal_tracker_token.length - 4
+    self.pivotal_tracker_token[0..3] + ('*'*number_of_stars)
+  end
 end

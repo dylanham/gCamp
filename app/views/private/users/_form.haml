@@ -21,6 +21,10 @@
     = f.label :password_confirmation,'Password Confirmation', class: 'control-label col-md-2'
     .col-md-4
       = f.password_field :password_confirmation, class: 'form-control'
+  .form-group
+    = f.label :pivotal_tracker_token,'Pivotal Tracker Token', class: 'control-label col-md-2'
+    .col-md-4
+      = f.text_field :pivotal_tracker_token, class: 'form-control'
   - if current_user.admin
     .form-group
       .col-md-3.col-md-offset-2
