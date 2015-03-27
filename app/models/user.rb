@@ -24,7 +24,9 @@ class User < ActiveRecord::Base
   end
 
   def pivotal_tracker_privacy
-    number_of_stars = self.pivotal_tracker_token.length - 4
-    self.pivotal_tracker_token[0..3] + ('*'*number_of_stars)
+    if self.pivotal_tracker_token
+      number_of_stars = self.pivotal_tracker_token.length - 4
+      self.pivotal_tracker_token[0..3] + ('*' * number_of_stars)
+    end
   end
 end
