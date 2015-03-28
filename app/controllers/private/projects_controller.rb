@@ -7,7 +7,9 @@ class Private::ProjectsController < PrivateController
     @projects = current_user.projects
     @admin_projects = Project.all
     tracker_api = TrackerAPI.new
-    @tracker_projects = tracker_api.projects(current_user.pivotal_tracker_token) if current_user.pivotal_tracker_token
+    if current_user.pivotal_tracker_token
+      @tracker_projects = tracker_api.projects(current_user.pivotal_tracker_token)
+    end
   end
 
   def show
