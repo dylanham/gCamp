@@ -18,7 +18,7 @@ feature 'User should be able to log into gCamp and do things' do
     end
   end
 
-  scenario 'should redirect you to the root path when signing up' do
+  scenario 'should redirect you to the new project path when signing up' do
     visit root_path
     click_on 'Sign Up'
     fill_in 'First Name', with: 'First'

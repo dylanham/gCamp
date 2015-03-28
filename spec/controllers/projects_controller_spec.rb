@@ -39,6 +39,7 @@ describe Private::ProjectsController do
 
         get :index
 
+        expect(session[:return_to]).to eq projects_path
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end
@@ -72,6 +73,7 @@ describe Private::ProjectsController do
 
         get :show, id: project.id
 
+        expect(session[:return_to]).to eq project_path(project)
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end
@@ -110,6 +112,7 @@ describe Private::ProjectsController do
       it 'should redirect a non logged in user to sign in' do
         get :new
 
+        expect(session[:return_to]).to eq new_project_path
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end
@@ -188,6 +191,7 @@ describe Private::ProjectsController do
 
         get :edit, id: project.id
 
+        expect(session[:return_to]).to eq edit_project_path(project)
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe TermsController do
+describe Public::TermsController do
   describe 'GET #index' do
     it 'renders the index view' do
       get :index

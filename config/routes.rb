@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
-  root 'welcome#index'
+  root 'public/welcome#index'
 
-  get 'terms/',   to: 'terms#index'
-  get 'about/',   to: 'terms#about_page'
-  get 'faq/'  ,   to: 'common_questions#index'
-  get 'sign-up',  to: 'registrations#new'
-  post 'sign-up', to: 'registrations#create'
-  get 'sign-out', to: 'authentication#destroy'
-  get 'sign-in',  to: 'authentication#new'
-  post'sign-in',  to: 'authentication#create'
+  get 'terms/',   to: 'public/terms#index'
+  get 'about/',   to: 'public/terms#about_page'
+  get 'faq/'  ,   to: 'public/common_questions#index'
+  get 'sign-up',  to: 'public/registrations#new'
+  post 'sign-up', to: 'public/registrations#create'
+  get 'sign-out', to: 'public/authentication#destroy'
+  get 'sign-in',  to: 'public/authentication#new'
+  post'sign-in',  to: 'public/authentication#create'
 
 
   resources :tasks, module: :private do

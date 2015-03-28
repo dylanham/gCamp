@@ -33,7 +33,7 @@ class Private::UsersController < PrivateController
   end
 
   def destroy
-    UserManagement.remove_user_id_on_comments(@user)
+    UserManager.remove_user_id_on_comments(@user)
     @user.destroy
     flash[:notice] = "User was successfully deleted"
     redirect_to users_path

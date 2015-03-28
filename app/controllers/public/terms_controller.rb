@@ -1,4 +1,4 @@
-class TermsController < PublicController
+class Public::TermsController < PublicController
 
   def index
   end

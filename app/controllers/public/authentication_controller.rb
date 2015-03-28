@@ -1,4 +1,4 @@
-class AuthenticationController < PublicController
+class Public::AuthenticationController < PublicController
 
   def new
   end

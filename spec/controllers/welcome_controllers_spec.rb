@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe WelcomeController do
+describe Public::WelcomeController do
   describe 'GET #index' do
     it 'should have an array of quotes' do
       get :index

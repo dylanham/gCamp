@@ -1,4 +1,4 @@
-class CommonQuestionsController < PublicController
+class Public::CommonQuestionsController < PublicController
   def index
     answers = CommonQuestion.get_question_answer
     slugs = CommonQuestion.get_slug

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe RegistrationsController do
+describe Public::RegistrationsController do
   describe 'GET #new' do
     it 'should render a new view' do
       get :new

@@ -46,6 +46,7 @@ describe Private::TasksController do
 
         get :index, project_id: project.id
 
+        expect(session[:return_to]).to eq project_tasks_path(project)
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end
@@ -110,6 +111,7 @@ describe Private::TasksController do
 
         get :show, project_id: project.id, id: task.id
 
+        expect(session[:return_to]).to eq project_task_path(project, task)
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end
@@ -173,6 +175,7 @@ describe Private::TasksController do
 
         get :new, project_id: project.id
 
+        expect(session[:return_to]).to eq new_project_task_path(project)
         expect(flash[:warning]).to eq 'You must sign in'
         expect(response).to redirect_to sign_in_path
       end
