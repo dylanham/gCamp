@@ -22,6 +22,6 @@ Rails.application.routes.draw do
     resources :memberships, except:[:show, :edit]
   end
 
-  resources :pivotal_projects, only:[:show], module: :private
+  resources :tracker_projects, only:[:show], module: :private
 
 end

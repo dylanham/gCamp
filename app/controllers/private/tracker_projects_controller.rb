@@ -1,4 +1,4 @@
-class Private::PivotalProjectsController < PrivateController
+class Private::TrackerProjectsController < PrivateController
 
   def show
     tracker_api = TrackerAPI.new
