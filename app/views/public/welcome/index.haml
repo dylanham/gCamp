@@ -34,6 +34,6 @@
 
   .col-md-12
     - @quotes.each do |author, quote|
-      %p= quote
+      %p= "#{quote}"
       %p
         %em.text-muted= "-#{author}"

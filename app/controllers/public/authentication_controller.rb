@@ -4,9 +4,9 @@ class Public::AuthenticationController < PublicController
   end
 
   def create
-    @user = User.find_by(email: params[:email])
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
       flash[:notice] = "You have successfully signed in"
       redirect_to session[:return_to] || projects_path
     else
