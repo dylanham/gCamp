@@ -8,11 +8,12 @@ class Private::ProjectsController < PrivateController
     @admin_projects = Project.all
     tracker_api = TrackerAPI.new
     if current_user.pivotal_tracker_token
-      if tracker_api.projects(current_user.pivotal_tracker_token).class == Array
-        @tracker_projects = tracker_api.projects(current_user.pivotal_tracker_token)
+      tracker_response = tracker_api.projects(current_user.pivotal_tracker_token)
+      if tracker_response.is_a? Array
+        @tracker_projects = tracker_response
       else
-        flash[:warning] = "Your tracker token is invalid"
-        @tracker_projects = {}
+        @tracker_projects = []
+        flash.now[:warning] = 'Invalid Token'
       end
     end
   end

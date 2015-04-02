@@ -15,5 +15,5 @@
         %tr
           %td= link_to story_hash[:name], story_hash[:url]
           %td= story_hash[:estimate]
-          %td= story_hash[:labels].map { |label_hash| label_hash[:name] }.join(',')
+          %td= story_hash[:labels].map { |label_hash| label_hash[:name] }.join(', ')
           %td= story_hash[:current_state]

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :comments
   has_many :projects, through: :memberships
-  
+
   def full_name
     "#{first_name} #{last_name}".titleize
   end
@@ -25,7 +25,11 @@ class User < ActiveRecord::Base
   end
 
   def pivotal_tracker_privacy
-    number_of_stars = self.pivotal_tracker_token.length - 4
-    self.pivotal_tracker_token[0..3] + ('*' * number_of_stars)
+    if self.pivotal_tracker_token.length > 4
+      number_of_stars = self.pivotal_tracker_token.length - 4
+      self.pivotal_tracker_token[0..3] + ('*' * number_of_stars)
+    else
+      "****"
+    end
   end
 end
